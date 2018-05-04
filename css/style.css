@@ -1,0 +1,50 @@
+/* Style the video: 100% width and height to cover the entire window */
+
+#video {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  min-width: 100%;
+  min-height: 100%;
+  overflow: hidden;
+  margin: 0px;
+  padding: 0px;
+}
+
+/* Add some content at the bottom of the video/page */
+.content {
+  font-family: 'Open Sans', sans-serif;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.5);
+  color: #f1f1f1;
+  width: 100%;
+  padding: 20px;
+  padding-top: 5em;
+  font-size: 3em;
+}
+
+h1 {
+  font-family: 'StratumNo2';
+  font-size: 5em;
+
+}
+
+/* Style the button used to pause/play the video */
+
+#myBtn {
+  font-size: 18px;
+  padding: 10px;
+  height: 4em;
+  border: 1px solid #fff;
+  background: rgba(0, 0, 0, 0);
+  color: #fff;
+  cursor: pointer;
+}
+
+#myBtn:hover {
+  background: #fff;
+  color: black;
+}
