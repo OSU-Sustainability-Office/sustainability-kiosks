@@ -1,3 +1,13 @@
+/**
+ * @Author: Jack Woods
+ * @Date:   2019-01-29T17:06:17-08:00
+ * @Email:  jackrwoods@gmail.com
+ * @Filename: style.css
+ * @Last modified by:   Jack Woods
+ * @Last modified time: 2019-01-29T22:53:42-08:00
+ * @Copyright: 2019 Oregon State University
+ */
+
 /* Style the video: 100% width and height to cover the entire window */
 
 #video {
@@ -9,6 +19,7 @@
   overflow: hidden;
   margin: 0px;
   padding: 0px;
+  z-index: -1;
 }
 
 /* Add some content at the bottom of the video/page */
@@ -17,29 +28,28 @@
   position: fixed;
   top: 0;
   bottom: 0;
-  left: 0;
-  background: rgba(0, 0, 0, 0.5);
+  left: -20px;
+  background: rgba(0, 0, 0, 0.1);
   color: #f1f1f1;
   width: 100%;
   padding: 20px;
-  padding-top: 5em;
+  padding-top: 1em;
   font-size: 3em;
 }
 
 h1 {
   font-family: 'StratumNo2';
   font-size: 3em;
-
+  margin: 0px;
 }
 
 /* Style the button used to pause/play the video */
 
 #myBtn {
   font-size: 18px;
-  padding: 10px;
   height: 4em;
   border: 1px solid #fff;
-  background: rgba(0, 0, 0, 0);
+  background: rgba(0, 0, 0, 0.7);
   color: #fff;
   cursor: pointer;
 }
