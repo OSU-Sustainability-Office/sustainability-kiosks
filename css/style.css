@@ -1,3 +1,12 @@
+/**
+ * @Author: Jack Woods
+ * @Date:   2019-01-29T17:06:17-08:00
+ * @Email:  jackrwoods@gmail.com
+ * @Filename: style.css
+ * @Last modified by:   Jack Woods
+ * @Last modified time: 2019-09-24T12:04:54-07:00
+ */
+
 /* Style the video: 100% width and height to cover the entire window */
 
 #video {
@@ -5,6 +14,7 @@
   left: 0;
   bottom: 0;
   min-width: 100%;
+  width: 100%;
   min-height: 100%;
   overflow: hidden;
   margin: 0px;
@@ -45,6 +55,21 @@ h1 {
 }
 
 #myBtn:hover {
+  background: #fff;
+  color: black;
+}
+
+#featured {
+  font-size: 18px;
+  padding: 10px;
+  height: 4em;
+  border: 1px solid #fff;
+  background: rgba(215, 63, 9, .7);
+  color: #fff;
+  cursor: pointer;
+}
+
+#featured:hover {
   background: #fff;
   color: black;
 }
