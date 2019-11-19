@@ -4,11 +4,9 @@
  * @Email:  jackrwoods@gmail.com
  * @Filename: style.css
  * @Last modified by:   Jack Woods
- * @Last modified time: 2019-09-24T12:04:54-07:00
+ * @Last modified time: 2019-11-19T12:18:04-08:00
  */
-
 /* Style the video: 100% width and height to cover the entire window */
-
 #video {
   position: fixed;
   left: 0;
@@ -19,6 +17,11 @@
   overflow: hidden;
   margin: 0px;
   padding: 0px;
+}
+
+body {
+  background-image: url("../media/mu.png");
+  background-size: cover;
 }
 
 /* Add some content at the bottom of the video/page */
@@ -36,14 +39,82 @@
   font-size: 3em;
 }
 
+.left-col {
+  display: inline-block;
+  width: 35%;
+  padding: 2%;
+  height: 3em;
+  text-align: right;
+  float: left;
+  border-right: 3px solid #000;
+  margin: 0px;
+}
+.right-col {
+  display: inline-block;
+  width: 55%;
+  padding: 2%;
+  height: 3em;
+  text-align: left;
+  float: right;
+  border-left: 3px solid #000;
+  margin: 0px;
+}
+
+.hiring-header {
+  position: fixed;
+  top: .3em;
+  left: 0;
+  text-align: justify;
+  font-family: 'StratumNo2';
+  background: rgba(146, 175, 215);
+  color: #f1f1f1;
+  padding: 20px;
+  font-size: 2.5em;
+}
+
+.hiring-content {
+  text-align: center;
+  font-family: 'StratumNo2';
+  position: fixed;
+  width: 90%;
+  top: 40%;
+  left: 5%;
+  right: 5%;
+  margin: auto;
+  color: #000;
+  font-size: 2.5em;
+  display: flex;
+}
+.hiring-content-h1 {
+  color: rgba(146, 175, 215);
+  font-size: 2em;
+}
+.hiring-content-h2 {
+  color: rgba(0, 0, 0);
+  font-size: 2em;
+}
+
+
+.hiring-footer {
+  text-align: justify;
+  font-family: 'StratumNo2';
+  position: fixed;
+  bottom: .3em;
+  right: 0;
+  background: rgba(146, 175, 215);
+  color: #f1f1f1;
+  padding: 20px;
+  font-size: 2.5em;
+}
+
 h1 {
   font-family: 'StratumNo2';
   font-size: 3em;
-
+  margin: 0px;
+  line-height: 1;
 }
 
 /* Style the button used to pause/play the video */
-
 #myBtn {
   font-size: 18px;
   padding: 10px;
