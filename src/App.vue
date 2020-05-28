@@ -9,7 +9,6 @@
 <template>
   <el-container class="app">
     <el-header class='header'>
-      <navigbar />
     </el-header>
     <el-main class='main' ref='main'>
         <router-view />
@@ -18,16 +17,19 @@
 </template>
 
 <script>
-import navigbar from '@/components/navBar'
 
 export default {
   name: 'App',
   components: {
-    navigbar
   },
   async created () {
   },
   data () {
+    return {
+      card: {
+        name: 'foo'
+      }
+    }
   },
   beforeDestroy () {
   },
@@ -75,7 +77,7 @@ body {
 .header {
   margin: 0;
   padding: 0;
-  height: $--nav-height;
+  height: 0;
   width: 100%;
   position: absolute;
   top: 0;
@@ -83,9 +85,9 @@ body {
 }
 .main {
   position: absolute;
-  top: $--nav-height;
+  top: 0;
   left: 0;
-  min-height: calc(100% - #{$--nav-height});
+  min-height: 100%;
   margin: 0;
   padding: 0;
   width: 100%;
