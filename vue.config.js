@@ -42,9 +42,9 @@ module.exports = {
           ]
         }
       ]
-    },
-    publicPath: process.env.NODE_ENV === 'production'
-      ? '/sustainability-kiosks/'
-      : '/'
-  }
+    }
+  },
+  publicPath: process.env.NODE_ENV === 'production'
+    ? '/sustainability-kiosks/'
+    : '/'
 }
