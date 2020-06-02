@@ -2,8 +2,8 @@
  * @Author: Brogan Miner <Brogan>
  * @Date:   2019-01-09T13:26:49-08:00
  * @Email:  brogan.miner@oregonstate.edu
- * @Last modified by:   Brogan
- * @Last modified time: 2019-02-01T14:07:17-08:00
+ * @Last modified by:   Adam
+ * @Last modified time: 2020-06-02T15:00:00-08:00
  */
 
 const path = require('path')
@@ -42,6 +42,9 @@ module.exports = {
           ]
         }
       ]
-    }
+    },
+    publicPath: process.env.NODE_ENV === 'production'
+      ? '/sustainability-kiosks/'
+      : '/'
   }
 }
