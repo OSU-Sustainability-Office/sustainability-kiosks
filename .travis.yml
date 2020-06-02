@@ -3,9 +3,6 @@ python:
 - '3.7'
 node_js:
 - '10'
-install:
-- pip install awscli
-- pip install aws-sam-cli
 script:
 - |
     npm install
@@ -17,4 +14,3 @@ deploy:
   keep-history: true
   on:
     branch: master
-- 
