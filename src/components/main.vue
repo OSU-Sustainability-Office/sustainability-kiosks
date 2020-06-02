@@ -6,13 +6,13 @@
 @Last modified time: 2020-05-16 T04:30-06:00PM
 -->
 <template>
-    <el-row class = "sus-main">
+    <el-row class = "sus-main" type="flex" justify ="center" align = "middle">
         <el-col class = "content">
         </el-col>
         <video autoplay muted loop id='Sus-bkg-video'>
             <source src='images/video.mp4' type='video/mp4'>
         </video>
-        <el-col type="flex" class = 'text-content' justify ="center" align="middle" >
+        <el-col type="flex" class = 'text-content' justify ="center" align="middle">
             <el-row class='sus-title'>
                 <el-col class = 'sus-title'>
                      Sustainability at OSU
@@ -23,14 +23,14 @@
                   Tap for more info.
                 </el-col>
             </el-row>
-                <el-row id = "button-links">
-                     <el-col :span = 8>
+                <el-row id = "button-links" type = "flex" justify ="space-around">
+                     <el-col>
                     <a href="http://fa.oregonstate.edu/sustainability"><el-button id="myBtn">Sustainability Website</el-button></a>
                      </el-col>
-                     <el-col :span = 8>
+                     <el-col>
                     <a href="http://carbon.campusops.oregonstate.edu/tabling/jeopardy"><el-button id="myBtn">Sustainability Jeopardy</el-button></a>
                      </el-col>
-                     <el-col :span = 8>
+                     <el-col>
                     <a href="https://myco2.sustainability.oregonstate.edu/"><el-button id="myBtn">Carbon Footprint Calculator</el-button></a>
                      </el-col>
 
@@ -88,12 +88,13 @@ export default {
     .text-content{
      font-size: $--font-size-large;
      position: fixed;
+     display: block;
      font-family: StratumNo2;
      color: $--color-white;
-     width: 100%;
+    //  width: 100%;
      padding: 20px;
-     padding-top: 10em;
-     height: 100%;
+    //  padding-top: 10em;
+    //  height: 100%;
     }
     .sus-title{
      color: $--color-white;
@@ -104,7 +105,7 @@ export default {
      font-size: 1.5em;
     }
     .button-links{
-        margin: 20px;
+        margin: 10px;
     }
     #myBtn{
      margin:20px;
