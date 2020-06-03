@@ -24,6 +24,10 @@
                 </el-col>
             </el-row>
                 <el-row id = "button-links" type = "flex" justify ="space-around">
+                    <el-col>
+                    </el-col>
+                    <el-col>
+                    </el-col>
                      <el-col>
                     <a href="http://fa.oregonstate.edu/sustainability"><el-button id="myBtn">Sustainability Website</el-button></a>
                      </el-col>
@@ -33,7 +37,10 @@
                      <el-col>
                     <a href="https://myco2.sustainability.oregonstate.edu/"><el-button id="myBtn">Carbon Footprint Calculator</el-button></a>
                      </el-col>
-
+                    <el-col>
+                    </el-col>
+                    <el-col>
+                    </el-col>
                 </el-row>
 
         </el-col>
