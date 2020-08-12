@@ -32,7 +32,7 @@
                     <a href="http://fa.oregonstate.edu/sustainability"><el-button id="myBtn">Sustainability Website</el-button></a>
                      </el-col>
                      <el-col>
-                    <!-- <a href="https://osu-sustainability-office.github.io/sustainability_jeopardy/"><el-button id="myBtn">Sustainability Jeopardy</el-button></a>    -->
+                    <a href="https://osu-sustainability-office.github.io/sustainability_jeopardy/"><el-button id="myBtn">Sustainability Jeopardy</el-button></a>   
                      </el-col>
                      <el-col>
                     <a href="https://myco2.sustainability.oregonstate.edu/"><el-button id="myBtn">Carbon Footprint Calculator</el-button></a>
