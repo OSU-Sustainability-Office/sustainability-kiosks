@@ -7,6 +7,9 @@
 -->
 
 <template>
+  <div id="cel">
+  </div>
+  <!--
   <el-container class="app">
     <el-header class='header'>
     </el-header>
@@ -14,6 +17,7 @@
         <router-view />
     </el-main>
   </el-container>
+  -->
 </template>
 
 <script>
