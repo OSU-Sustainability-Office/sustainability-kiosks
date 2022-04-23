@@ -1,4 +1,4 @@
-# Project Base
+# Project Base ![travis build status image](https://app.travis-ci.com/OSU-Sustainability-Office/sustainability-kiosks.svg?branch=master&status=passed)
 This repo serves for an easy way to get started with a new project. If at any point there is confusion while using this, look at the Energy Dashboard repo for examples/guidance then update documentation/code in this repo to reflect those changes.
 
 ## Installation Steps
