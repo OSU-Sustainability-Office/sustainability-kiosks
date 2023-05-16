@@ -9,14 +9,23 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import main from '@/components/main.vue'
+import sec from '@/components/sec.vue'
 
 Vue.use(Router)
 
 export default new Router({
   routes: [
     {
-      path: '*',
+      path: '/',
       component: main
+    },
+    {
+      path: '/sec',
+      component: sec
+    },
+    {
+      path: '*',
+      redirect: '/'
     }
   ]
 })
