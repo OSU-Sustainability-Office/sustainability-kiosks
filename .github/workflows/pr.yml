@@ -1,9 +1,8 @@
 name: test build
 on:
-  push:
-    branches-ignore:
+  pull_request:
+    branches:
       - master
-      - gh-pages
 
 jobs:
   build-deploy-gh-pages:
