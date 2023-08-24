@@ -1,8 +1,9 @@
-name: PR Build test
+name: Test Build
 on:
-  pull_request:
-    branches:
+  push:
+    branches-ignore:
       - master
+      - gh-pages
 
 jobs:
   build-deploy-gh-pages:
