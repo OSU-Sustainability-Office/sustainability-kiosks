@@ -8,9 +8,7 @@
 
 module.exports = function (api) {
   api.cache(true)
-  const presets = [
-    '@vue/app'
-  ]
+  const presets = ['@vue/app']
   return {
     presets
   }
