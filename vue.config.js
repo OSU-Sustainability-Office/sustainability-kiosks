@@ -19,9 +19,7 @@ module.exports = {
   pluginOptions: {
     'style-resources-loader': {
       preProcessor: 'scss',
-      patterns: [
-        path.resolve(__dirname, 'src/assets/style-variable.scss')
-      ]
+      patterns: [path.resolve(__dirname, 'src/assets/style-variable.scss')]
     }
   },
   configureWebpack: {
@@ -35,16 +33,11 @@ module.exports = {
         {
           test: /\.js$/,
           include: path.resolve(__dirname, 'src'),
-          use: [
-            'cache-loader',
-            'thread-loader',
-            'babel-loader'
-          ]
+          use: ['cache-loader', 'thread-loader', 'babel-loader']
         }
       ]
     }
   },
-  publicPath: process.env.NODE_ENV === 'production'
-    ? '/sustainability-kiosks/'
-    : '/'
+  publicPath:
+    process.env.NODE_ENV === 'production' ? '/sustainability-kiosks/' : '/'
 }

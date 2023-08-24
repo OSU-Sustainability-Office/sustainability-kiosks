@@ -12,17 +12,13 @@ import Vuex from 'vuex'
 Vue.use(Vuex)
 
 const store = {
-  getters: {
-  },
+  getters: {},
 
-  actions: {
-  },
+  actions: {},
 
-  mutations: {
-  },
+  mutations: {},
 
-  modules: {
-  }
+  modules: {}
 }
 
 export default new Vuex.Store(store)

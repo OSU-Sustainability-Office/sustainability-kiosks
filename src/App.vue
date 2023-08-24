@@ -8,22 +8,18 @@
 
 <template>
   <el-container class="app">
-    <el-header class='header'>
-    </el-header>
-    <el-main class='main' ref='main'>
-        <router-view />
+    <el-header class="header"> </el-header>
+    <el-main class="main" ref="main">
+      <router-view />
     </el-main>
   </el-container>
 </template>
 
 <script>
-
 export default {
   name: 'App',
-  components: {
-  },
-  async created () {
-  },
+  components: {},
+  async created () {},
   data () {
     return {
       card: {
@@ -31,39 +27,36 @@ export default {
       }
     }
   },
-  beforeDestroy () {
-  },
-  methods: {
-  },
-  watch: {
-  }
+  beforeDestroy () {},
+  methods: {},
+  watch: {}
 }
-
 </script>
 
 <style>
-@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+@import url("https://fonts.googleapis.com/css?family=Open+Sans");
 @font-face {
-    font-family: 'StratumNo2';
-    src: url('/sustainability-kiosks/fonts/StratumNo2-Bold.woff2') format('woff2'),
-        url('/sustainability-kiosks/fonts/StratumNo2-Bold.woff') format('woff'),
-        url('/sustainability-kiosks/fonts/StratumNo2-Bold.ttf') format('truetype'),
-        url('/sustainability-kiosks/fonts/StratumNo2-Bold.svg#StratumNo2-Bold') format('svg');
-    font-weight: bold;
-    font-style: normal;
+  font-family: "StratumNo2";
+  src: url("/sustainability-kiosks/fonts/StratumNo2-Bold.woff2") format("woff2"),
+    url("/sustainability-kiosks/fonts/StratumNo2-Bold.woff") format("woff"),
+    url("/sustainability-kiosks/fonts/StratumNo2-Bold.ttf") format("truetype"),
+    url("/sustainability-kiosks/fonts/StratumNo2-Bold.svg#StratumNo2-Bold")
+      format("svg");
+  font-weight: bold;
+  font-style: normal;
 }
 body {
-  font-family: 'Open Sans', sans-serif;
+  font-family: "Open Sans", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 </style>
-<style lang='scss'>
+<style lang="scss">
 @import "~element-ui/packages/theme-chalk/src/index";
 </style>
 
-<style scoped lang='scss'>
-@import '@/assets/style-variables.scss';
+<style scoped lang="scss">
+@import "@/assets/style-variables.scss";
 
 .app {
   padding: 0;
