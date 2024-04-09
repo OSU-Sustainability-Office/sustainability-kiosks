@@ -13,15 +13,34 @@
     </video>
     <el-col type="flex" class="text-content" justify="center" align="middle">
       <el-row class="sus-title">
-        <el-col class="sus-title"> Sustainability at OSU </el-col>
+        <el-col class="sus-title"> Sustainability at OSU is hiring!</el-col>
       </el-row>
-      <el-row class="sus-info">
-        <el-col class="sus-info"> sustainability.oregonstate.edu </el-col>
+      <el-row class="sus-hiring-info">
+        <el-col span="12">
+          <img
+            class="hiring-img"
+            src="@/assets/assessment_and_planning_intern.png"
+            alt="Assessment and Planning Intern"
+          />
+        </el-col>
+        <el-col span="12">
+          <img
+            class="hiring-img"
+            src="@/assets/student_engagement_intern.png"
+            alt="Student Engagement Intern"
+          />
+        </el-col>
       </el-row>
-      <br />
-      <el-row class="sus-info">
-        <el-col class="qr-code">
-          <img src="@/assets/qr-code-sec.png" alt="QR Code" />
+      <el-row type="flex" align="middle" class="sus-info">
+        <el-col span="12" class="sus-info">
+          The OSU Sustainability Office is now hiring two student employees.
+          Applications are due April 14. Follow the QR code to learn more and
+          apply! For alternative formats or accommodations related to a
+          disability, or for any questions, please contact
+          sustainability@oregonstate.edu
+        </el-col>
+        <el-col span="12" class="qr-code">
+          <img src="@/assets/qr-code_hiring_apr_2024-test.png" alt="QR Code" />
         </el-col>
       </el-row>
     </el-col>
@@ -78,18 +97,16 @@ video {
   display: block;
   font-family: StratumNo2;
   color: $--color-white;
-  //  width: 100%;
   padding: 20px;
-  //  padding-top: 10em;
-  //  height: 100%;
 }
 .sus-title {
   color: $--color-white;
-  font-size: 2.5em;
+  font-size: 1.9em;
+  margin-top: 30px;
 }
 .sus-info {
   color: $--color-white;
-  font-size: 1.5em;
+  font-size: 1.2em;
 }
 .button-links {
   margin: 10px;
@@ -107,5 +124,14 @@ video {
 #myBtn:hover {
   background: $--color-white;
   color: $--color-black;
+}
+
+.el-row {
+  margin-bottom: 20px;
+}
+
+.hiring-img {
+  width: 95%;
+  border-radius: 5px;
 }
 </style>
