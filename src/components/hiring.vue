@@ -35,7 +35,7 @@
         <el-col span="12" class="sus-info">
           The OSU Sustainability Office is now hiring two student employees.
           Applications are due April 14. Follow the QR code to learn more and
-          apply! For alternative formats or acccommodations related to a
+          apply! For alternative formats or accommodations related to a
           disability, or for any questions, please contact
           sustainability@oregonstate.edu
         </el-col>
