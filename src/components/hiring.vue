@@ -40,7 +40,7 @@
           sustainability@oregonstate.edu
         </el-col>
         <el-col span="12" class="qr-code">
-          <img src="@/assets/qr-code_hiring_apr_2024.png" alt="QR Code" />
+          <img src="@/assets/qr-code_hiring_apr_2024-test.png" alt="QR Code" />
         </el-col>
       </el-row>
     </el-col>
@@ -101,11 +101,12 @@ video {
 }
 .sus-title {
   color: $--color-white;
-  font-size: 2.5em;
+  font-size: 1.9em;
+  margin-top: 30px;
 }
 .sus-info {
   color: $--color-white;
-  font-size: 1.5em;
+  font-size: 1.2em;
 }
 .button-links {
   margin: 10px;
@@ -130,6 +131,7 @@ video {
 }
 
 .hiring-img {
+  width: 95%;
   border-radius: 5px;
 }
 </style>

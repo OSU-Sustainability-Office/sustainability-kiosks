@@ -21,7 +21,7 @@
       <br />
       <el-row class="sus-info">
         <el-col class="qr-code">
-          <img src="@/assets/qr-code.png" alt="QR Code" />
+          <img src="@/assets/qr-code-sec.png" alt="QR Code" />
         </el-col>
       </el-row>
     </el-col>
