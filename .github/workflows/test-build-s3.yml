@@ -1,8 +1,8 @@
 name: S3 Test Build
 on:
-  push:
+  pull_request:
     branches:
-      - refresh-back-button-deploy
+      - master
 
 jobs:
   build-deploy-s3:
@@ -32,3 +32,4 @@ jobs:
       - name: deploy frontend to s3
         run: |
           aws s3 sync ./dist s3://sustainability-kiosks
+
