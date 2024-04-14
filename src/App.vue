@@ -39,7 +39,7 @@ export default {
       url: process.env.VUE_APP_HOST_ADDRESS,
       modifiedDateUnix: 0,
       timeDiffUnix: 0,
-      refreshInterval: 20 // time in seconds
+      refreshInterval: 30 // time in seconds
     }
   },
   methods: {
