@@ -19,7 +19,26 @@
 export default {
   name: 'App',
   components: {},
-  async created () {},
+  async created () {
+    // https://stackoverflow.com/a/75952012
+    // https://stackoverflow.com/questions/58652880/what-is-the-replacement-for-performance-navigation-type-in-angular
+    window.addEventListener('pageshow', function (event) {
+      var historyTraversal = event.persisted
+      var perf = window.performance
+      var perfEntries =
+          perf && perf.getEntriesByType && perf.getEntriesByType('navigation')
+      var perfEntryType = perfEntries && perfEntries[0] && perfEntries[0].type
+      var navigationType = perf && perf.navigation && perf.navigation.type
+      if (
+        historyTraversal ||
+        perfEntryType === 'back_forward' ||
+        navigationType === 2
+      ) {
+        // Handle page restore.
+        window.location.reload()
+      }
+    })
+  },
   data () {
     return {
       card: {
