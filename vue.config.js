@@ -39,5 +39,9 @@ module.exports = {
     }
   },
   publicPath:
-    process.env.NODE_ENV === 'production' ? '/sustainability-kiosks/' : '/'
+    process.env.NODE_ENV === 'production' &&
+    process.env.VUE_APP_HOST_ADDRESS ===
+      'https://osu-sustainability-office.github.io/sustainability-kiosks/'
+      ? '/sustainability-kiosks/'
+      : '/'
 }
