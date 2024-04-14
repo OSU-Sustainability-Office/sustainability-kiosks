@@ -23,7 +23,8 @@ export default {
     // https://stackoverflow.com/a/75952012
     // https://stackoverflow.com/questions/58652880/what-is-the-replacement-for-performance-navigation-type-in-angular
     this.backButtonRefresh()
-    if (process.env.NODE_ENV === 'development') {
+    // turned off for local development for reasons explained in "watch: " section
+    if (process.env.NODE_ENV !== 'development') {
       this.timer = setInterval(
         this.fetchLastModified,
         this.refreshInterval * 1000
@@ -93,6 +94,8 @@ export default {
     // https://v2.vuejs.org/v2/guide/computed.html#Watchers
     modifiedDateUnix: function (newDate, oldDate) {
       console.log(oldDate)
+      // NOTE: undefined last modified date (like on local dev) means the "oldDate" will always be 0
+      // It is recommended to test the refresh functionality on preview S3 deployment
       if (oldDate !== 0) {
         console.log('page reloading in 10 seconds')
         setTimeout(() => {
@@ -108,6 +111,13 @@ export default {
 @import url("https://fonts.googleapis.com/css?family=Open+Sans");
 @font-face {
   font-family: "StratumNo2";
+  /* TODO: Fix this sometime to dynamically change the Font URL prefix based on environment
+     In the meantime, use these prefixes (RESET TO PRODUCTION PREFIX BEFORE MERGE!):
+      - local / staging:
+        - "/fonts/"
+      - production:
+        - "/sustainability-kiosks/fonts/"
+  */
   src: url("/sustainability-kiosks/fonts/StratumNo2-Bold.woff2") format("woff2"),
     url("/sustainability-kiosks/fonts/StratumNo2-Bold.woff") format("woff"),
     url("/sustainability-kiosks/fonts/StratumNo2-Bold.ttf") format("truetype"),
