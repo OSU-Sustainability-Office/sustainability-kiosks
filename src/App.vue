@@ -22,33 +22,80 @@ export default {
   async created () {
     // https://stackoverflow.com/a/75952012
     // https://stackoverflow.com/questions/58652880/what-is-the-replacement-for-performance-navigation-type-in-angular
-    window.addEventListener('pageshow', function (event) {
-      var historyTraversal = event.persisted
-      var perf = window.performance
-      var perfEntries =
-          perf && perf.getEntriesByType && perf.getEntriesByType('navigation')
-      var perfEntryType = perfEntries && perfEntries[0] && perfEntries[0].type
-      var navigationType = perf && perf.navigation && perf.navigation.type
-      if (
-        historyTraversal ||
-        perfEntryType === 'back_forward' ||
-        navigationType === 2
-      ) {
-        // Handle page restore.
-        window.location.reload()
-      }
-    })
+    this.backButtonRefresh()
+    if (process.env.NODE_ENV === 'production') {
+      this.timer = window.setInterval(
+        this.fetchLastModified,
+        this.refreshInterval * 1000
+      ) // setInterval expects milliseconds
+    }
   },
   data () {
     return {
       card: {
         name: 'foo'
-      }
+      },
+      timer: '',
+      url: process.env.VUE_APP_HOST_ADDRESS,
+      modifiedDateUnix: 0,
+      timeDiffUnix: 0,
+      refreshInterval: 20 // time in seconds
     }
   },
-  beforeDestroy () {},
-  methods: {},
-  watch: {}
+  methods: {
+    backButtonRefresh () {
+      window.addEventListener('pageshow', function (event) {
+        let historyTraversal = event.persisted
+        let perf = window.performance
+        let perfEntries =
+          perf && perf.getEntriesByType && perf.getEntriesByType('navigation')
+        let perfEntryType =
+          perfEntries && perfEntries[0] && perfEntries[0].type
+        let navigationType = perf && perf.navigation && perf.navigation.type
+        if (
+          historyTraversal ||
+          perfEntryType === 'back_forward' ||
+          navigationType === 2
+        ) {
+          window.location.reload()
+        }
+      })
+    },
+    // https://stackoverflow.com/questions/36572540/vue-js-auto-reload-refresh-data-with-timer
+    // https://stackoverflow.com/a/74967740
+    fetchLastModified () {
+      fetch(this.url, { method: 'HEAD' }).then((r) => {
+        // string for when kiosk prod / staging was last modified, e.g. "Tue Apr 09 2024 14:29:24 GMT-0700 (Pacific Daylight Time)"
+        let modifiedDateString = new Date(r.headers.get('Last-Modified'))
+
+        // time in seconds for when kiosk prod / staging was last modified
+        this.modifiedDateUnix = Math.floor(modifiedDateString / 1000)
+
+        // time in seconds between last time kiosk prod / staging was modified and now
+        this.timeDiffUnix =
+          Math.floor(Date.now() / 1000) - this.modifiedDateUnix
+
+        console.log(modifiedDateString)
+        console.log(this.timeDiffUnix)
+      })
+    },
+    cancelAutoUpdate () {
+      clearInterval(this.timer)
+    }
+  },
+  beforeDestroy () {
+    this.cancelAutoUpdate()
+  },
+  watch: {
+    // modifiedDateUnix is checked periodically as defined by this.refreshInterval
+    // if the modifiedDateUnix changes (not counting initial load), the page is reloaded
+    // https://v2.vuejs.org/v2/guide/computed.html#Watchers
+    modifiedDateUnix: function (newDate, oldDate) {
+      if (oldDate !== 0) {
+        window.location.reload()
+      }
+    }
+  }
 }
 </script>
 
