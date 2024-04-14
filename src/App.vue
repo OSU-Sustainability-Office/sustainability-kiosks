@@ -23,8 +23,8 @@ export default {
     // https://stackoverflow.com/a/75952012
     // https://stackoverflow.com/questions/58652880/what-is-the-replacement-for-performance-navigation-type-in-angular
     this.backButtonRefresh()
-    if (process.env.NODE_ENV === 'production') {
-      this.timer = window.setInterval(
+    if (process.env.NODE_ENV === 'development') {
+      this.timer = setInterval(
         this.fetchLastModified,
         this.refreshInterval * 1000
       ) // setInterval expects milliseconds
@@ -39,7 +39,7 @@ export default {
       url: process.env.VUE_APP_HOST_ADDRESS,
       modifiedDateUnix: 0,
       timeDiffUnix: 0,
-      refreshInterval: 30 // time in seconds
+      refreshInterval: 20 // time in seconds. TODO: Increase this to like 10 minutes before merge
     }
   },
   methods: {
@@ -75,6 +75,7 @@ export default {
         this.timeDiffUnix =
           Math.floor(Date.now() / 1000) - this.modifiedDateUnix
 
+        // TODO: remove log statements before merge
         console.log(modifiedDateString)
         console.log(this.timeDiffUnix)
       })
@@ -91,8 +92,12 @@ export default {
     // if the modifiedDateUnix changes (not counting initial load), the page is reloaded
     // https://v2.vuejs.org/v2/guide/computed.html#Watchers
     modifiedDateUnix: function (newDate, oldDate) {
+      console.log(oldDate)
       if (oldDate !== 0) {
-        window.location.reload()
+        console.log('page reloading in 10 seconds')
+        setTimeout(() => {
+          window.location.reload()
+        }, 10000)
       }
     }
   }
