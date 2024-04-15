@@ -8,10 +8,9 @@
 
 import Vue from 'vue'
 import Router from 'vue-router'
-// TODO: Add back main
-// import main from '@/components/main.vue'
-// import sec from '@/components/sec.vue'
-import hiring from '@/components/hiring.vue'
+import main from '@/components/main.vue'
+import sec from '@/components/sec.vue'
+// import hiring from '@/components/hiring.vue'
 
 Vue.use(Router)
 
@@ -19,11 +18,11 @@ export default new Router({
   routes: [
     {
       path: '/',
-      component: hiring
+      component: main
     },
     {
       path: '/sec',
-      component: hiring
+      component: sec
     },
     {
       path: '*',

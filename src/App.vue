@@ -40,7 +40,7 @@ export default {
       url: process.env.VUE_APP_HOST_ADDRESS,
       modifiedDateUnix: 0,
       timeDiffUnix: 0,
-      refreshInterval: 20 // time in seconds. TODO: Increase this to like 10 minutes before merge
+      refreshInterval: 600 // 10 minutes refresh interval. Time in seconds (lower for debug)
     }
   },
   methods: {
@@ -76,9 +76,7 @@ export default {
         this.timeDiffUnix =
           Math.floor(Date.now() / 1000) - this.modifiedDateUnix
 
-        // TODO: remove log statements before merge
-        console.log(modifiedDateString)
-        console.log(this.timeDiffUnix)
+        // Log the modifiedDateUnix and timeDiffUnix here if needed for debug
       })
     },
     cancelAutoUpdate () {
