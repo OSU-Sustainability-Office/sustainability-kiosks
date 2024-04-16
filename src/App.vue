@@ -40,7 +40,7 @@ export default {
       url: process.env.VUE_APP_HOST_ADDRESS,
       modifiedDateUnix: 0,
       timeDiffUnix: 0,
-      refreshInterval: 20 // 10 minutes refresh interval. Time in seconds (lower for debug)
+      refreshInterval: 600 // 10 minutes refresh interval. Time in seconds (lower for debug)
     }
   },
   methods: {
