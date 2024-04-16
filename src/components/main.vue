@@ -13,7 +13,7 @@
     </video>
     <el-col type="flex" class="text-content" justify="center" align="middle">
       <el-row class="sus-title">
-        <el-col class="sus-title"> Sustainability at OSU </el-col>
+        <el-col class="sus-title"> Sustainability at OSU! </el-col>
       </el-row>
       <el-row class="sus-info">
         <el-col class="sus-info"> Tap for more info. </el-col>
