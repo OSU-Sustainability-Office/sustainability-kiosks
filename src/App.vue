@@ -20,9 +20,10 @@ export default {
   name: 'App',
   components: {},
   async created () {
+    // For future reference on how back button doesn't clear cache (for MU kiosk)
     // https://stackoverflow.com/a/75952012
     // https://stackoverflow.com/questions/58652880/what-is-the-replacement-for-performance-navigation-type-in-angular
-    this.backButtonRefresh()
+
     // turned off for local development for reasons explained in "watch: " section
     if (process.env.NODE_ENV !== 'development') {
       this.timer = setInterval(
@@ -44,27 +45,9 @@ export default {
     }
   },
   methods: {
-    backButtonRefresh () {
-      window.addEventListener('pageshow', function (event) {
-        let historyTraversal = event.persisted
-        let perf = window.performance
-        let perfEntries =
-          perf && perf.getEntriesByType && perf.getEntriesByType('navigation')
-        let perfEntryType =
-          perfEntries && perfEntries[0] && perfEntries[0].type
-        let navigationType = perf && perf.navigation && perf.navigation.type
-        if (
-          historyTraversal ||
-          perfEntryType === 'back_forward' ||
-          navigationType === 2
-        ) {
-          window.location.reload()
-        }
-      })
-    },
-    // https://stackoverflow.com/questions/36572540/vue-js-auto-reload-refresh-data-with-timer
-    // https://stackoverflow.com/a/74967740
     fetchLastModified () {
+      // https://stackoverflow.com/questions/36572540/vue-js-auto-reload-refresh-data-with-timer
+      // https://stackoverflow.com/a/74967740
       fetch(this.url, { method: 'HEAD' }).then((r) => {
         // string for when kiosk prod / staging was last modified, e.g. "Tue Apr 09 2024 14:29:24 GMT-0700 (Pacific Daylight Time)"
         let modifiedDateString = new Date(r.headers.get('Last-Modified'))
