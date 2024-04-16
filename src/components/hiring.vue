@@ -16,14 +16,14 @@
         <el-col class="sus-title"> Sustainability at OSU is hiring!</el-col>
       </el-row>
       <el-row class="sus-hiring-info">
-        <el-col span="12">
+        <el-col :span="12">
           <img
             class="hiring-img"
             src="@/assets/assessment_and_planning_intern.png"
             alt="Assessment and Planning Intern"
           />
         </el-col>
-        <el-col span="12">
+        <el-col :span="12">
           <img
             class="hiring-img"
             src="@/assets/student_engagement_intern.png"
@@ -32,14 +32,14 @@
         </el-col>
       </el-row>
       <el-row type="flex" align="middle" class="sus-info">
-        <el-col span="12" class="sus-info">
+        <el-col :span="12" class="sus-info">
           The OSU Sustainability Office is now hiring two student employees.
           Applications are due April 14. Follow the QR code to learn more and
           apply! For alternative formats or accommodations related to a
           disability, or for any questions, please contact
           sustainability@oregonstate.edu
         </el-col>
-        <el-col span="12" class="qr-code">
+        <el-col :span="12" class="qr-code">
           <img src="@/assets/qr-code_hiring_apr_2024-test.png" alt="QR Code" />
         </el-col>
       </el-row>
