@@ -1,15 +1,17 @@
-# Project Base ![Frontend Status](https://github.com/OSU-Sustainability-Office/sustainability-kiosks/actions/workflows/gh-deploy.yml/badge.svg)
+# Sustainability Kiosks ![Frontend Status](https://github.com/OSU-Sustainability-Office/sustainability-kiosks/actions/workflows/gh-deploy.yml/badge.svg) ![Test Build Status](https://github.com/OSU-Sustainability-Office/energy-dashboard/actions/workflows/test-build-s3.yml/badge.svg)
 
-This repo serves for an easy way to get started with a new project. If at any point there is confusion while using this, look at the Energy Dashboard repo for examples/guidance then update documentation/code in this repo to reflect those changes.
+Content designed for large-format touchscreens in high-traffic locations on OSU's campus.
 
-## Installation Steps
+## Site URLs
 
-- Fork this repo
-- Change the package.json and backend/template.yaml to reflect correct project name
-- `npm install`
-- Add code to the base to develop new application
+Production Deployment URL: https://osu-sustainability-office.github.io/sustainability-kiosks/#/
+Test Deployment URL: http://sustainability-kiosks.s3-website-us-west-2.amazonaws.com/#/
 
-### Other Notes
+## Site Setup
 
-- sam_express.js is included in the backend directory. This is an express wrapper for AWS SAM which makes it quicker as it wont spin up docker containers on aby invocation. Tests should still be done with the SAM local API as it simulates production closer.
-- No Travis script is in this repository, this may be added later. For now, just copy one out of an existing repo and make changes as necessary.
+- Installing Dependencies
+  - `npm i`
+- Run website locally
+  - `npm run serve`
+- Formatting
+  - `npm run format`
