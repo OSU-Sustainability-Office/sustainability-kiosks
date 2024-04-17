@@ -4,8 +4,8 @@ Content designed for large-format touchscreens in high-traffic locations on OSU'
 
 ## Site URLs
 
-Production Deployment URL: https://osu-sustainability-office.github.io/sustainability-kiosks/#/
-Test Deployment URL: http://sustainability-kiosks.s3-website-us-west-2.amazonaws.com/#/
+- Production Deployment URL: https://osu-sustainability-office.github.io/sustainability-kiosks/#/
+- Test Deployment URL: http://sustainability-kiosks.s3-website-us-west-2.amazonaws.com/#/
 
 ## Site Setup
 
@@ -13,5 +13,6 @@ Test Deployment URL: http://sustainability-kiosks.s3-website-us-west-2.amazonaws
   - `npm i`
 - Run website locally
   - `npm run serve`
+  - If you want to test with the same fonts locally as production, make adjustments to font URL prefixes as noted in the `@font-face` section of [src/App.vue](https://github.com/OSU-Sustainability-Office/sustainability-kiosks/blob/master/src/App.vue)
 - Formatting
   - `npm run format`
