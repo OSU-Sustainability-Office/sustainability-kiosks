@@ -1,4 +1,4 @@
-# Sustainability Kiosks ![Frontend Status](https://github.com/OSU-Sustainability-Office/sustainability-kiosks/actions/workflows/gh-deploy.yml/badge.svg) ![Test Build Status](https://github.com/OSU-Sustainability-Office/energy-dashboard/actions/workflows/test-build-s3.yml/badge.svg)
+# Sustainability Kiosks ![Frontend Status](https://github.com/OSU-Sustainability-Office/sustainability-kiosks/actions/workflows/gh-deploy.yml/badge.svg) ![Test Build Status](https://github.com/OSU-Sustainability-Office/sustainability-kiosks/actions/workflows/test-build-s3.yml/badge.svg)
 
 Content designed for large-format touchscreens in high-traffic locations on OSU's campus.
 
