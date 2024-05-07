@@ -25,11 +25,26 @@
         </el-col>
       </el-row>
     </el-col>
+    <el-button
+      id="touchscreen-test-button"
+      @click="testTouchscreen"
+    ></el-button>
   </el-row>
 </template>
 
 <script>
-export default {}
+export default {
+  methods: {
+    testTouchscreen () {
+      const btn = document.getElementById('touchscreen-test-button')
+      if (btn.style.background === 'orange') {
+        btn.style.background = 'none'
+      } else {
+        btn.style.background = 'orange'
+      }
+    }
+  }
+}
 </script>
 
 <style scoped lang="scss">
@@ -107,5 +122,18 @@ video {
 #myBtn:hover {
   background: $--color-white;
   color: $--color-black;
+}
+
+#touchscreen-test-button {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  margin: 0;
+  padding: 0;
+  height: 100px;
+  width: 100px;
+  border: 1px solid rgba(193, 193, 193, 0.2);
+  background: none;
 }
 </style>
