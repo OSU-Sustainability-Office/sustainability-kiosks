@@ -5,7 +5,10 @@ Content designed for large-format touchscreens in high-traffic locations on OSU'
 ## Site URLs
 
 - Production Deployment URL: https://osu-sustainability-office.github.io/sustainability-kiosks/#/
-- Test Deployment URL: http://sustainability-kiosks.s3-website-us-west-2.amazonaws.com/#/
+- Test Deployment URL (http): http://sustainability-kiosks.s3-website-us-west-2.amazonaws.com/#/
+- Test Deployment URL's (https):
+  - https://sustainability-kiosks.s3.us-west-2.amazonaws.com/index.html#/
+  - https://sustainability-kiosks.s3.us-west-2.amazonaws.com/index.html#/sec
 
 ## Site Setup
 
