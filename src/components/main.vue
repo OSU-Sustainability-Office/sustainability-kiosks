@@ -22,7 +22,7 @@
         <el-col> </el-col>
         <el-col> </el-col>
         <el-col>
-          <a href="http://fa.oregonstate.edu/sustainability"
+          <a href="https://fa.oregonstate.edu/sustainability"
             ><el-button id="myBtn">Sustainability Website</el-button></a
           >
         </el-col>
