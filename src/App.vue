@@ -108,9 +108,6 @@ export default {
       this.$router.push('/')
     }
   },
-  mounted () {
-    this.$el.addEventListener('click', this.navigateToHomepage)
-  },
   async created () {
     // For future reference on how back button doesn't clear cache (for MU kiosk)
     // https://stackoverflow.com/a/75952012
@@ -124,11 +121,14 @@ export default {
       ) // setInterval expects milliseconds
     }
 
-    // create first timer
-    this.createInactivityTimer()
-
     // get media for rotation
     await this.fetchMedia()
+
+    // if there is media, create a timer and click listener for media rotation
+    if (this.mediaList.length > 0) {
+      this.$el.addEventListener('click', this.navigateToHomepage)
+      this.createInactivityTimer()
+    }
   },
   beforeDestroy () {
     clearInterval(this.timer)
