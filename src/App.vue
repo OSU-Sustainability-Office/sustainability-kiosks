@@ -31,7 +31,7 @@ export default {
       modifiedDateUnix: 0,
       timeDiffUnix: 0,
       refreshInterval: 600, // 10 minutes refresh interval. Time in seconds (lower for debug)
-      inactivityTimeout: 20000, // 20 seconds of inactivity. Time in milliseconds
+      inactivityTimeout: 10000, // 20 seconds of inactivity. Time in milliseconds
       inactivityTimer: null,
       mediaList: [],
       apiKey: process.env.VUE_APP_API_KEY,
@@ -89,7 +89,9 @@ export default {
         this.$router.push({
           name: 'Carousel',
           params: {
-            images: this.mediaList
+            images: this.mediaList,
+            returnRoute: this.$route.path,
+            touchScreenIndicator: this.$route.path === '/'
           }
         })
       }, this.inactivityTimeout)
@@ -152,6 +154,11 @@ export default {
         setTimeout(() => {
           window.location.reload()
         }, 10000)
+      }
+    },
+    $route (to, from) {
+      if (from.path === '/carousel' && to.path !== '/carousel') {
+        this.createInactivityTimer()
       }
     }
   }

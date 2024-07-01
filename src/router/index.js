@@ -29,7 +29,11 @@ export default new Router({
       path: '/carousel',
       name: 'Carousel',
       component: carousel,
-      props: (route) => ({ images: route.params.images })
+      props: (route) => ({
+        images: route.params.images,
+        returnRoute: route.params.returnRoute,
+        touchScreenIndicator: route.params.touchScreenIndicator
+      })
     },
     {
       path: '*',

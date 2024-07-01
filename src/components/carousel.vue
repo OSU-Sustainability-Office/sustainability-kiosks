@@ -1,15 +1,28 @@
 <template>
   <el-row class="img-container" type="flex" justify="center" align="middle">
     <img :src="currentImage" />
+    <div v-if="mediaOverlay">
+      <h1 class="text-content">
+        Tap the screen to learn more about the Sustainability Office!
+      </h1>
+    </div>
   </el-row>
 </template>
-s
+
 <script>
 export default {
   props: {
     images: {
       type: Array,
       required: true
+    },
+    returnRoute: {
+      type: String,
+      default: null
+    },
+    touchScreenIndicator: {
+      type: Boolean,
+      default: false
     }
   },
   data () {
@@ -25,6 +38,12 @@ export default {
   methods: {
     rotateImage () {
       this.imgIndex = (this.imgIndex + 1) % this.images.length
+
+      // if a return route was given and all images have been shown,
+      // return to the previous route
+      if (this.returnRoute && this.imgIndex === 0) {
+        this.$router.push(this.returnRoute)
+      }
     }
   },
   // rotate the image based on the given interval (in ms)
@@ -63,14 +82,11 @@ img {
   object-fit: contain;
 }
 .text-content {
-  font-size: $--font-size-large;
-  position: fixed;
-  display: block;
-  font-family: StratumNo2;
-  color: $--color-white;
-  //  width: 100%;
-  padding: 20px;
-  //  padding-top: 10em;
-  //  height: 100%;
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  color: white;
+  padding: 5px;
+  border-radius: 5px;
 }
 </style>
