@@ -16,22 +16,11 @@
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
   name: 'App',
   components: {},
-  async created () {
-    // For future reference on how back button doesn't clear cache (for MU kiosk)
-    // https://stackoverflow.com/a/75952012
-    // https://stackoverflow.com/questions/58652880/what-is-the-replacement-for-performance-navigation-type-in-angular
-
-    // turned off for local development for reasons explained in "watch: " section
-    if (process.env.NODE_ENV !== 'development') {
-      this.timer = setInterval(
-        this.fetchLastModified,
-        this.refreshInterval * 1000
-      ) // setInterval expects milliseconds
-    }
-  },
   data () {
     return {
       card: {
@@ -41,7 +30,12 @@ export default {
       url: process.env.VUE_APP_HOST_ADDRESS,
       modifiedDateUnix: 0,
       timeDiffUnix: 0,
-      refreshInterval: 600 // 10 minutes refresh interval. Time in seconds (lower for debug)
+      refreshInterval: 600, // 10 minutes refresh interval. Time in seconds (lower for debug)
+      inactivityTimeout: 10000, // 20 seconds of inactivity. Time in milliseconds
+      inactivityTimer: null,
+      mediaList: [],
+      apiKey: process.env.VUE_APP_API_KEY,
+      folderId: process.env.VUE_APP_GOOGLE_DRIVE_FOLDER_ID // Google Drive folder ID (must be public)
     }
   },
   methods: {
@@ -62,12 +56,90 @@ export default {
         // Log the modifiedDateUnix and timeDiffUnix here if needed for debug
       })
     },
-    cancelAutoUpdate () {
-      clearInterval(this.timer)
+    // fetch media from Google Drive folder
+    async fetchMedia () {
+      try {
+        // request the folder info
+        const response = await axios.get(
+          `https://www.googleapis.com/drive/v3/files`,
+          {
+            params: {
+              q: `'${this.folderId}' in parents and mimeType contains 'image/' and trashed=false`,
+              key: this.apiKey,
+              fields: 'files(id, name, mimeType)'
+            }
+          }
+        )
+
+        if (response.status !== 200) {
+          console.error('Error while querying folder: ', response.status)
+        } else {
+          // store thumbnail URL version of every image in the folder
+          this.mediaList = response.data.files.map((file) =>
+            String(`https://drive.google.com/thumbnail?id=${file.id}&sz=w2000`)
+          )
+        }
+      } catch (error) {
+        console.error('Error fetching images:', error)
+      }
+    },
+    // creates a timer that routes to the Carousel page after time is up
+    createInactivityTimer () {
+      this.inactivityTimer = setTimeout(() => {
+        this.$router.push({
+          name: 'Carousel',
+          params: {
+            images: this.mediaList,
+            returnRoute: this.$route.path,
+            touchScreenIndicator: this.$route.path === '/'
+          }
+        })
+      }, this.inactivityTimeout)
+    },
+    navigateToHomepage () {
+      console.log('Timer reset')
+
+      // clear timer
+      if (this.inactivityTimer) {
+        clearTimeout(this.inactivityTimer)
+      }
+
+      // set a new timer for navigating to image carousel
+      this.createInactivityTimer()
+
+      this.$router.push('/')
+    }
+  },
+  async created () {
+    // For future reference on how back button doesn't clear cache (for MU kiosk)
+    // https://stackoverflow.com/a/75952012
+    // https://stackoverflow.com/questions/58652880/what-is-the-replacement-for-performance-navigation-type-in-angular
+
+    // turned off for local development for reasons explained in "watch: " section
+    if (process.env.NODE_ENV !== 'development') {
+      this.timer = setInterval(
+        this.fetchLastModified,
+        this.refreshInterval * 1000
+      ) // setInterval expects milliseconds
+    }
+
+    // get media for rotation
+    await this.fetchMedia()
+
+    // if there is media, create a timer and click listener for media rotation
+    if (this.mediaList.length > 0) {
+      this.$el.addEventListener('click', this.navigateToHomepage)
+      this.createInactivityTimer()
     }
   },
   beforeDestroy () {
-    this.cancelAutoUpdate()
+    clearInterval(this.timer)
+
+    if (this.inactivityTimer) {
+      clearTimeout(this.inactivityTimer)
+    }
+
+    this.$el.removeEventListener('click', this.navigateToHomepage)
   },
   watch: {
     // modifiedDateUnix is checked periodically as defined by this.refreshInterval
@@ -82,6 +154,11 @@ export default {
         setTimeout(() => {
           window.location.reload()
         }, 10000)
+      }
+    },
+    $route (to, from) {
+      if (from.path === '/carousel' && to.path !== '/carousel') {
+        this.createInactivityTimer()
       }
     }
   }
