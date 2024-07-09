@@ -1,7 +1,7 @@
 <template>
   <el-row class="img-container" type="flex" justify="center" align="middle">
     <img :src="currentImage" />
-    <div v-if="mediaOverlay">
+    <div v-if="touchScreenIndicator">
       <h1 class="text-content">
         Tap the screen to learn more about the Sustainability Office!
       </h1>
