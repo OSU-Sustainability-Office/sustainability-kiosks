@@ -3,7 +3,7 @@
     <img :src="currentImage" />
     <div v-if="touchScreenIndicator">
       <h1 class="text-content">
-        Tap the screen to learn more about the Sustainability Office!
+        Tap to learn more about the Sustainability Office
       </h1>
     </div>
   </el-row>
@@ -27,7 +27,8 @@ export default {
   },
   data () {
     return {
-      imgIndex: 0
+      imgIndex: 0,
+      rotationInterval: 10000, // time in ms (10 seconds)
     }
   },
   computed: {
@@ -49,7 +50,7 @@ export default {
   // rotate the image based on the given interval (in ms)
   // ref: https://developer.mozilla.org/en-US/docs/Web/API/setInterval
   mounted () {
-    this.timer = setInterval(this.rotateImage, 5000)
+    this.timer = setInterval(this.rotateImage, this.rotationInterval)
 
     // if there are no images, redirect to the home page
     if (!this.images || this.images.length === 0) {
@@ -88,5 +89,6 @@ img {
   color: white;
   padding: 5px;
   border-radius: 5px;
+  background-color: rgba(0, 0, 0, 0.5);
 }
 </style>

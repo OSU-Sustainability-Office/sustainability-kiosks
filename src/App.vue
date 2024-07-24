@@ -31,11 +31,9 @@ export default {
       modifiedDateUnix: 0,
       timeDiffUnix: 0,
       refreshInterval: 600, // 10 minutes refresh interval. Time in seconds (lower for debug)
-      inactivityTimeout: 10000, // 20 seconds of inactivity. Time in milliseconds
+      inactivityTimeout: 30000, // 30 seconds of inactivity. Time in milliseconds
       inactivityTimer: null,
       mediaList: [],
-      apiKey: process.env.VUE_APP_API_KEY,
-      folderId: process.env.VUE_APP_GOOGLE_DRIVE_FOLDER_ID // Google Drive folder ID (must be public)
     }
   },
   methods: {
@@ -58,30 +56,21 @@ export default {
     },
     // fetch media from Google Drive folder
     async fetchMedia () {
-      try {
-        // request the folder info
-        const response = await axios.get(
-          `https://www.googleapis.com/drive/v3/files`,
-          {
-            params: {
-              q: `'${this.folderId}' in parents and mimeType contains 'image/' and trashed=false`,
-              key: this.apiKey,
-              fields: 'files(id, name, mimeType)'
-            }
-          }
-        )
+      const bucketURL = "https://osu-kiosk-media.s3.us-west-2.amazonaws.com"
 
-        if (response.status !== 200) {
-          console.error('Error while querying folder: ', response.status)
-        } else {
-          // store thumbnail URL version of every image in the folder
-          this.mediaList = response.data.files.map((file) =>
-            String(`https://drive.google.com/thumbnail?id=${file.id}&sz=w2000`)
-          )
-        }
+      // fetch media list from S3 bucket
+      try {
+        const response = await axios.get(bucketURL)
+        const parser = new DOMParser();
+        const xmlDoc = parser.parseFromString(response.data, "text/xml");
+        const keys = xmlDoc.getElementsByTagName("Key");
+
+        this.mediaList = Array.from(keys).map(key => `${bucketURL}/${key.textContent}`);
       } catch (error) {
-        console.error('Error fetching images:', error)
+        console.error('Error fetching media:', error)
       }
+
+      console.log("Media list:", this.mediaList);
     },
     // creates a timer that routes to the Carousel page after time is up
     createInactivityTimer () {
@@ -97,7 +86,6 @@ export default {
       }, this.inactivityTimeout)
     },
     navigateToHomepage () {
-      console.log('Timer reset')
 
       // clear timer
       if (this.inactivityTimer) {
