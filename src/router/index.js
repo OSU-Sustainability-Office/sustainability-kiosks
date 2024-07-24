@@ -11,7 +11,6 @@ import Router from 'vue-router'
 import main from '@/components/main.vue'
 import sec from '@/components/sec.vue'
 import carousel from '@/components/carousel.vue'
-// import hiring from '@/components/hiring.vue'
 
 Vue.use(Router)
 
