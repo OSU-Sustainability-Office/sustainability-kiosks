@@ -30,7 +30,7 @@ export default {
       url: process.env.VUE_APP_HOST_ADDRESS,
       modifiedDateUnix: 0,
       timeDiffUnix: 0,
-      refreshInterval: 600, // 10 minutes refresh interval. Time in seconds (lower for debug)
+      refreshInterval: 300, // 5 minutes refresh interval. Time in seconds (lower for debug)
       inactivityTimeout: 30000, // 30 seconds of inactivity. Time in milliseconds
       inactivityTimer: null,
       mediaList: [],
