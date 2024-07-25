@@ -34,7 +34,7 @@ export default {
       inactivityTimeout: 30000, // 30 seconds of inactivity. Time in milliseconds
       inactivityTimeoutDefault: 30000, // 30 seconds of inactivity. Time in milliseconds
       inactivityTimer: null,
-      mediaList: [],
+      mediaList: []
     }
   },
   methods: {
@@ -57,27 +57,28 @@ export default {
     },
     // fetch media from AWS bucket
     async fetchMedia () {
-      const bucketURL = "https://osu-kiosk-media.s3.us-west-2.amazonaws.com"
+      const bucketURL = 'https://osu-kiosk-media.s3.us-west-2.amazonaws.com'
 
       // fetch media list from S3 bucket
       try {
         const response = await axios.get(bucketURL)
-        const parser = new DOMParser();
-        const xmlDoc = parser.parseFromString(response.data, "text/xml");
-        const keys = xmlDoc.getElementsByTagName("Key");
+        const parser = new DOMParser()
+        const xmlDoc = parser.parseFromString(response.data, 'text/xml')
+        const keys = xmlDoc.getElementsByTagName('Key')
 
-        this.mediaList = Array.from(keys).map(key => `${bucketURL}/${key.textContent}`);
+        this.mediaList = Array.from(keys).map(
+          (key) => `${bucketURL}/${key.textContent}`
+        )
       } catch (error) {
         console.error('Error fetching media:', error)
       }
 
-      console.log("Media list:", this.mediaList);
+      console.log('Media list:', this.mediaList)
     },
     // creates a timer that routes to the Carousel page after time is up
     createInactivityTimer () {
-
       // refresh media
-      this.fetchMedia();
+      this.fetchMedia()
 
       this.inactivityTimer = setTimeout(() => {
         this.$router.push({
@@ -91,7 +92,6 @@ export default {
       }, this.inactivityTimeout)
     },
     navigateToHomepage () {
-
       // clear timer
       if (this.inactivityTimer) {
         clearTimeout(this.inactivityTimer)
@@ -119,10 +119,9 @@ export default {
     // get media for rotation
     await this.fetchMedia()
 
-    //create a timer and click listener for media rotation
+    // create a timer and click listener for media rotation
     this.$el.addEventListener('click', this.navigateToHomepage)
     this.createInactivityTimer()
-
   },
   beforeDestroy () {
     clearInterval(this.timer)
@@ -149,11 +148,11 @@ export default {
       }
     },
     mediaList: function (newList, oldList) {
-      console.log("Media length: ", newList.length);
+      console.log('Media length: ', newList.length)
       if (newList.length === 0) {
-        this.inactivityTimeout = this.refreshInterval * 1000;
+        this.inactivityTimeout = this.refreshInterval * 1000
       } else {
-        this.inactivityTimeout = this.inactivityTimeoutDefault;
+        this.inactivityTimeout = this.inactivityTimeoutDefault
       }
     },
     $route (to, from) {

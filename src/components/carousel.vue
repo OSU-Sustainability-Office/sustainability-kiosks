@@ -28,7 +28,7 @@ export default {
   data () {
     return {
       imgIndex: 0,
-      rotationInterval: 10000, // time in ms (10 seconds)
+      rotationInterval: 15000 // time in ms (15 seconds)
     }
   },
   computed: {
