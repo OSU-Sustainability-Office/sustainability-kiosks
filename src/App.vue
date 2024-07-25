@@ -32,6 +32,7 @@ export default {
       timeDiffUnix: 0,
       refreshInterval: 300, // 5 minutes refresh interval. Time in seconds (lower for debug)
       inactivityTimeout: 30000, // 30 seconds of inactivity. Time in milliseconds
+      inactivityTimeoutDefault: 30000, // 30 seconds of inactivity. Time in milliseconds
       inactivityTimer: null,
       mediaList: [],
     }
@@ -74,6 +75,18 @@ export default {
     },
     // creates a timer that routes to the Carousel page after time is up
     createInactivityTimer () {
+
+      // refresh media
+      this.fetchMedia();
+
+      // if there is no media, set the inactivity timeout to the longer refresh interval
+      // otherwise use the default inactivity timeout
+      if (this.mediaList.length === 0) {
+        this.inactivityTimeout = this.refreshInterval * 1000;
+      } else {
+        this.inactivityTimeout = this.inactivityTimeoutDefault;
+      };
+
       this.inactivityTimer = setTimeout(() => {
         this.$router.push({
           name: 'Carousel',
@@ -115,10 +128,9 @@ export default {
     await this.fetchMedia()
 
     // if there is media, create a timer and click listener for media rotation
-    if (this.mediaList.length > 0) {
-      this.$el.addEventListener('click', this.navigateToHomepage)
-      this.createInactivityTimer()
-    }
+    this.$el.addEventListener('click', this.navigateToHomepage)
+    this.createInactivityTimer()
+
   },
   beforeDestroy () {
     clearInterval(this.timer)
