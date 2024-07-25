@@ -30,7 +30,7 @@ export default {
       url: process.env.VUE_APP_HOST_ADDRESS,
       modifiedDateUnix: 0,
       timeDiffUnix: 0,
-      refreshInterval: 300, // 5 minutes refresh interval. Time in seconds (lower for debug)
+      refreshInterval: 600, // 10 minutes refresh interval. Time in seconds (lower for debug)
       inactivityTimeout: 30000, // 30 seconds of inactivity. Time in milliseconds
       inactivityTimeoutDefault: 30000, // 30 seconds of inactivity. Time in milliseconds
       inactivityTimer: null,
@@ -55,7 +55,7 @@ export default {
         // Log the modifiedDateUnix and timeDiffUnix here if needed for debug
       })
     },
-    // fetch media from Google Drive folder
+    // fetch media from AWS bucket
     async fetchMedia () {
       const bucketURL = "https://osu-kiosk-media.s3.us-west-2.amazonaws.com"
 
@@ -78,14 +78,6 @@ export default {
 
       // refresh media
       this.fetchMedia();
-
-      // if there is no media, set the inactivity timeout to the longer refresh interval
-      // otherwise use the default inactivity timeout
-      if (this.mediaList.length === 0) {
-        this.inactivityTimeout = this.refreshInterval * 1000;
-      } else {
-        this.inactivityTimeout = this.inactivityTimeoutDefault;
-      };
 
       this.inactivityTimer = setTimeout(() => {
         this.$router.push({
@@ -127,7 +119,7 @@ export default {
     // get media for rotation
     await this.fetchMedia()
 
-    // if there is media, create a timer and click listener for media rotation
+    //create a timer and click listener for media rotation
     this.$el.addEventListener('click', this.navigateToHomepage)
     this.createInactivityTimer()
 
@@ -154,6 +146,14 @@ export default {
         setTimeout(() => {
           window.location.reload()
         }, 10000)
+      }
+    },
+    mediaList: function (newList, oldList) {
+      console.log("Media length: ", newList.length);
+      if (newList.length === 0) {
+        this.inactivityTimeout = this.refreshInterval * 1000;
+      } else {
+        this.inactivityTimeout = this.inactivityTimeoutDefault;
       }
     },
     $route (to, from) {
