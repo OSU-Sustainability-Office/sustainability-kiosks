@@ -34,7 +34,7 @@ export default {
       inactivityTimeout: 30000, // 30 seconds of inactivity. Time in milliseconds
       inactivityTimeoutDefault: 30000, // 30 seconds of inactivity. Time in milliseconds
       inactivityTimer: null,
-      mediaList: ['/images/Fall_Hiring_Poster_24.png']
+      mediaList: ['images/Fall_Hiring_Poster_24.png']
     }
   },
   methods: {
