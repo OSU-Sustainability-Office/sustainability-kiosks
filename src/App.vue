@@ -34,7 +34,7 @@ export default {
       inactivityTimeout: 30000, // 30 seconds of inactivity. Time in milliseconds
       inactivityTimeoutDefault: 30000, // 30 seconds of inactivity. Time in milliseconds
       inactivityTimer: null,
-      mediaList: []
+      mediaList: ['/images/Fall_Hiring_Poster_24.png']
     }
   },
   methods: {
@@ -78,7 +78,7 @@ export default {
     // creates a timer that routes to the Carousel page after time is up
     createInactivityTimer () {
       // refresh media
-      this.fetchMedia()
+      // this.fetchMedia()
 
       this.inactivityTimer = setTimeout(() => {
         this.$router.push({
@@ -117,11 +117,14 @@ export default {
     }
 
     // get media for rotation
-    await this.fetchMedia()
+    // await this.fetchMedia()
+    console.log('Media list:', this.mediaList)
 
-    // create a timer and click listener for media rotation
-    this.$el.addEventListener('click', this.navigateToHomepage)
+    // create a timer for media rotation
     this.createInactivityTimer()
+  },
+  mounted () {
+    this.$el.addEventListener('click', this.navigateToHomepage)
   },
   beforeDestroy () {
     clearInterval(this.timer)
