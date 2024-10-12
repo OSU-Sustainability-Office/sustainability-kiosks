@@ -34,7 +34,7 @@ export default {
       inactivityTimeout: 30000, // 30 seconds of inactivity. Time in milliseconds
       inactivityTimeoutDefault: 30000, // 30 seconds of inactivity. Time in milliseconds
       inactivityTimer: null,
-      mediaList: ['images/Fall_Hiring_Poster_24.png']
+      mediaList: []
     }
   },
   methods: {
@@ -57,18 +57,41 @@ export default {
     },
     // fetch media from AWS bucket
     async fetchMedia () {
-      const bucketURL = 'https://osu-kiosk-media.s3.us-west-2.amazonaws.com'
+      const listUrl = 'https://osu-kiosk-media.s3.us-west-2.amazonaws.com'
+      const imgUrlPrefix = 'https://d3aici5r99iqap.cloudfront.net'
 
       // fetch media list from S3 bucket
       try {
-        const response = await axios.get(bucketURL)
+        const response = await axios.get(listUrl)
         const parser = new DOMParser()
         const xmlDoc = parser.parseFromString(response.data, 'text/xml')
         const keys = xmlDoc.getElementsByTagName('Key')
 
-        this.mediaList = Array.from(keys).map(
-          (key) => `${bucketURL}/${key.textContent}`
+        this.fetchedMediaList = Array.from(keys).map(
+          (key) => `${imgUrlPrefix}/${key.textContent}`
         )
+
+        // remove any old images
+        for (const imgUrl of this.mediaList) {
+          if (!this.fetchedMediaList.includes(imgUrl)) {
+            this.mediaList = this.mediaList.filter((media) => media !== imgUrl)
+          }
+        }
+
+        // add new images and force browser to cache them
+        for (const imgUrl of this.fetchedMediaList) {
+          if (!this.mediaList.includes(imgUrl)) {
+            const img = new Image()
+            img.src = imgUrl
+            img.onload = () => {
+              this.mediaList.push(imgUrl)
+            }
+
+            img.onerror = (error) => {
+              console.error('Error loading image:', error)
+            }
+          }
+        }
       } catch (error) {
         console.error('Error fetching media:', error)
       }
@@ -77,9 +100,6 @@ export default {
     },
     // creates a timer that routes to the Carousel page after time is up
     createInactivityTimer () {
-      // refresh media
-      // this.fetchMedia()
-
       this.inactivityTimer = setTimeout(() => {
         this.$router.push({
           name: 'Carousel',

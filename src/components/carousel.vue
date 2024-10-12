@@ -1,9 +1,6 @@
 <template>
   <el-row class="img-container" type="flex" justify="center" align="middle">
-    <img
-      src="@/assets/Fall_Hiring_Poster_24.png"
-      alt="Fall hiring poster with QR codes"
-    />
+    <img :src="currentImage" alt="Hiring or Event posting" />
     <div v-if="touchScreenIndicator">
       <h1 class="text-content">
         Tap to learn more about the Sustainability Office
