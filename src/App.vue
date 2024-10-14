@@ -10,7 +10,7 @@
   <el-container class="app">
     <el-header class="header"> </el-header>
     <el-main class="main" ref="main">
-      <router-view />
+      <router-view @iframeChanged="iframe = $event" />
     </el-main>
   </el-container>
 </template>
@@ -31,10 +31,12 @@ export default {
       modifiedDateUnix: 0,
       timeDiffUnix: 0,
       refreshInterval: 600, // 10 minutes refresh interval. Time in seconds (lower for debug)
+      mediaCheckTimer: null,
+      mediaCheckInterval: 43200000, // 12 hours. Time in ms
       inactivityTimeout: 30000, // 30 seconds of inactivity. Time in milliseconds
-      inactivityTimeoutDefault: 30000, // 30 seconds of inactivity. Time in milliseconds
       inactivityTimer: null,
-      mediaList: ['images/Fall_Hiring_Poster_24.png']
+      iframe: null,
+      mediaList: []
     }
   },
   methods: {
@@ -57,29 +59,47 @@ export default {
     },
     // fetch media from AWS bucket
     async fetchMedia () {
-      const bucketURL = 'https://osu-kiosk-media.s3.us-west-2.amazonaws.com'
+      const listUrl = 'https://osu-kiosk-media.s3.us-west-2.amazonaws.com'
+      const imgUrlPrefix = 'https://d3aici5r99iqap.cloudfront.net'
 
       // fetch media list from S3 bucket
       try {
-        const response = await axios.get(bucketURL)
+        const response = await axios.get(listUrl)
         const parser = new DOMParser()
         const xmlDoc = parser.parseFromString(response.data, 'text/xml')
         const keys = xmlDoc.getElementsByTagName('Key')
 
-        this.mediaList = Array.from(keys).map(
-          (key) => `${bucketURL}/${key.textContent}`
+        this.fetchedMediaList = Array.from(keys).map(
+          (key) => `${imgUrlPrefix}/${key.textContent}`
         )
+
+        // remove any old images
+        for (const imgUrl of this.mediaList) {
+          if (!this.fetchedMediaList.includes(imgUrl)) {
+            this.mediaList = this.mediaList.filter((media) => media !== imgUrl)
+          }
+        }
+
+        // add new images and force browser to cache them
+        for (const imgUrl of this.fetchedMediaList) {
+          if (!this.mediaList.includes(imgUrl)) {
+            const img = new Image()
+            img.src = imgUrl
+            img.onload = () => {
+              this.mediaList.push(imgUrl)
+            }
+
+            img.onerror = (error) => {
+              console.error('Error loading image:', error)
+            }
+          }
+        }
       } catch (error) {
         console.error('Error fetching media:', error)
       }
-
-      console.log('Media list:', this.mediaList)
     },
     // creates a timer that routes to the Carousel page after time is up
     createInactivityTimer () {
-      // refresh media
-      // this.fetchMedia()
-
       this.inactivityTimer = setTimeout(() => {
         this.$router.push({
           name: 'Carousel',
@@ -98,9 +118,11 @@ export default {
       }
 
       // set a new timer for navigating to image carousel
-      this.createInactivityTimer()
+      if (!this.iframe) this.createInactivityTimer()
 
-      this.$router.push('/')
+      if (!this.iframe && this.$route.path === '/carousel') {
+        this.$router.push('/')
+      }
     }
   },
   async created () {
@@ -114,11 +136,16 @@ export default {
         this.fetchLastModified,
         this.refreshInterval * 1000
       ) // setInterval expects milliseconds
+
+      // check for new media
+      this.mediaCheckTimer = setInterval(
+        this.fetchMedia,
+        this.mediaCheckInterval
+      )
     }
 
     // get media for rotation
-    // await this.fetchMedia()
-    console.log('Media list:', this.mediaList)
+    await this.fetchMedia()
 
     // create a timer for media rotation
     this.createInactivityTimer()
@@ -128,6 +155,7 @@ export default {
   },
   beforeDestroy () {
     clearInterval(this.timer)
+    clearInterval(this.mediaCheckTimer)
 
     if (this.inactivityTimer) {
       clearTimeout(this.inactivityTimer)
@@ -151,15 +179,23 @@ export default {
       }
     },
     mediaList: function (newList, oldList) {
-      console.log('Media length: ', newList.length)
       if (newList.length === 0) {
-        this.inactivityTimeout = this.refreshInterval * 1000
-      } else {
-        this.inactivityTimeout = this.inactivityTimeoutDefault
+        clearInterval(this.inactivityTimer)
+      } else if (oldList.length === 0) {
+        this.createInactivityTimer()
       }
     },
     $route (to, from) {
       if (from.path === '/carousel' && to.path !== '/carousel') {
+        this.createInactivityTimer()
+      }
+    },
+    // clear the carousel timer when the iframe is active,
+    // reset it when the iframe is closed
+    iframe: function (newUrl, oldUrl) {
+      if (newUrl) {
+        clearTimeout(this.inactivityTimer)
+      } else {
         this.createInactivityTimer()
       }
     }
