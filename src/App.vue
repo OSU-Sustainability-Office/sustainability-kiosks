@@ -36,7 +36,8 @@ export default {
       inactivityTimeout: 30000, // 30 seconds of inactivity. Time in milliseconds
       inactivityTimer: null,
       iframe: null,
-      mediaList: []
+      mediaList: [],
+      homePath: '/'
     }
   },
   methods: {
@@ -106,7 +107,7 @@ export default {
           params: {
             images: this.mediaList,
             returnRoute: this.$route.path,
-            touchScreenIndicator: this.$route.path === '/'
+            touchScreenIndicator: this.homePath === '/'
           }
         })
       }, this.inactivityTimeout)
@@ -121,7 +122,7 @@ export default {
       if (!this.iframe) this.createInactivityTimer()
 
       if (!this.iframe && this.$route.path === '/carousel') {
-        this.$router.push('/')
+        this.$router.push(this.homePath)
       }
     }
   },
@@ -152,6 +153,7 @@ export default {
   },
   mounted () {
     this.$el.addEventListener('click', this.navigateToHomepage)
+    this.homePath = this.$route.path
   },
   beforeDestroy () {
     clearInterval(this.timer)
@@ -172,6 +174,11 @@ export default {
       // NOTE: undefined last modified date (like on local dev) means the "oldDate" will always be 0
       // It is recommended to test the refresh functionality on preview S3 deployment
       if (oldDate !== 0) {
+        // this prevents page from loading to '/' route if it reloads while on '/carousel'
+        if (this.homePath === '/sec') {
+          this.$router.push(this.homePath)
+        }
+
         console.log('page reloading in 10 seconds')
         setTimeout(() => {
           window.location.reload()
@@ -188,6 +195,10 @@ export default {
     $route (to, from) {
       if (from.path === '/carousel' && to.path !== '/carousel') {
         this.createInactivityTimer()
+      }
+
+      if (to.path !== 'carousel') {
+        this.homePath = to.path
       }
     },
     // clear the carousel timer when the iframe is active,
