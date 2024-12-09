@@ -22,116 +22,30 @@
         <el-col> </el-col>
         <el-col> </el-col>
         <el-col>
-          <el-button
-            id="myBtn"
-            @click="setPopup('https://fa.oregonstate.edu/sustainability')"
-            >Sustainability Website</el-button
+          <a href="https://fa.oregonstate.edu/sustainability"
+            ><el-button id="myBtn">Sustainability Website</el-button></a
           >
         </el-col>
         <el-col>
-          <el-button
-            id="myBtn"
-            @click="
-              setIframe(
-                'https://osu-sustainability-office.github.io/sustainability_jeopardy/'
-              )
-            "
-            >Sustainability Jeopardy</el-button
+          <a
+            href="https://osu-sustainability-office.github.io/sustainability_jeopardy/"
+            ><el-button id="myBtn">Sustainability Jeopardy</el-button></a
           >
         </el-col>
         <el-col>
-          <el-button
-            id="myBtn"
-            @click="setIframe('https://myco2.sustainability.oregonstate.edu/')"
-            >Carbon Footprint Calculator</el-button
+          <a href="https://myco2.sustainability.oregonstate.edu/"
+            ><el-button id="myBtn">Carbon Footprint Calculator</el-button></a
           >
         </el-col>
         <el-col> </el-col>
         <el-col> </el-col>
       </el-row>
-      <div v-if="iframe" id="iframe-container">
-        <div id="iframe-inactivity-test" @click="resetIframeActivityTester()">
-          <p id="stay-on-page-text">Tap to stay on this page</p>
-        </div>
-        <iframe
-          :src="iframe"
-          width="100%"
-          height="100%"
-          frameborder="0"
-          allowfullscreen
-        ></iframe>
-        <el-button
-          id="home-btn"
-          size="large"
-          icon="el-icon-s-home"
-          circle
-          @click="setIframe(null)"
-        ></el-button>
-      </div>
     </el-col>
   </el-row>
 </template>
 
 <script>
-export default {
-  data () {
-    return {
-      iframe: null,
-      iframeTimer: null,
-      iframeTimeout: 300000, // 5 minutes
-      iframeActivityTestTimeout: 240000, // 4 minutes
-      popupTimeout: 60000 // 1 minute for testing
-    }
-  },
-  methods: {
-    setPopup (url) {
-      const opts = `top=0, left=0, height=${window.screen.availHeight},width=${window.screen.availWidth} toolbar=no,location=no,menubar=no,fullscreen=yes`
-      let popupWindow = window.open(url, 'kioskWindow', opts)
-
-      if (popupWindow) {
-        // this.$emit("iframeChanged", url)
-
-        const intervalId = setInterval(() => {
-          clearInterval(intervalId)
-          popupWindow.close()
-          popupWindow = null
-          // this.$emit("iframeChanged", null)
-        }, this.popupTimeout)
-      }
-    },
-    setIframe (url) {
-      this.iframe = url
-      this.resetIframeTimer()
-      this.$emit('iframeChanged', url)
-    },
-    resetIframeTimer () {
-      // set click tester timer to reset pointer-event to auto
-      setTimeout(() => {
-        this.toggleIframeActivityTester('visible')
-      }, this.iframeActivityTestTimeout)
-
-      clearTimeout(this.iframeTimer)
-      this.iframeTimer = setTimeout(() => {
-        this.iframe = null
-        this.$emit('iframeChanged', null)
-      }, this.iframeTimeout)
-    },
-    resetIframeActivityTester () {
-      this.toggleIframeActivityTester('hidden')
-      this.resetIframeTimer()
-    },
-    toggleIframeActivityTester (visibility) {
-      const iframeActivityDiv = document.getElementById(
-        'iframe-inactivity-test'
-      )
-      iframeActivityDiv.style.visibility =
-        visibility === 'hidden' ? 'hidden' : 'visible'
-    }
-  },
-  beforeDestroy () {
-    clearTimeout(this.iframeTimer)
-  }
-}
+export default {}
 </script>
 
 <style scoped lang="scss">
@@ -209,52 +123,5 @@ video {
 #myBtn:hover {
   background: $--color-white;
   color: $--color-black;
-}
-
-/* iframe styling */
-#iframe-container {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 100;
-  background: white;
-}
-
-#iframe-inactivity-test {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 101;
-  background: rgba(0, 0, 0, 0.5);
-  visibility: hidden;
-}
-
-#stay-on-page-text {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 2em;
-  color: rgba(255, 255, 255, 0.8);
-  text-align: center;
-  width: fit-content;
-  padding: 10px;
-  border-radius: 10px;
-  z-index: 102;
-  background: rgba(0, 0, 0, 0.5);
-}
-
-#home-btn {
-  position: fixed;
-  background-color: #ff4e00;
-  border: none;
-  color: black;
-  bottom: 10px;
-  left: 10px;
-  z-index: 105;
 }
 </style>
