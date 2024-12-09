@@ -24,7 +24,7 @@
         <el-col>
           <el-button
             id="myBtn"
-            @click="setIframe('https://fa.oregonstate.edu/sustainability')"
+            @click="setPopup('https://fa.oregonstate.edu/sustainability')"
             >Sustainability Website</el-button
           >
         </el-col>
@@ -79,10 +79,26 @@ export default {
       iframe: null,
       iframeTimer: null,
       iframeTimeout: 300000, // 5 minutes
-      iframeActivityTestTimeout: 240000 // 4 minutes
+      iframeActivityTestTimeout: 240000, // 4 minutes
+      popupTimeout: 60000 // 1 minute for testing
     }
   },
   methods: {
+    setPopup (url) {
+      const opts = `top=0, left=0, height=${window.screen.availHeight},width=${window.screen.availWidth} toolbar=no,location=no,menubar=no,fullscreen=yes`
+      let popupWindow = window.open(url, 'kioskWindow', opts)
+
+      if (popupWindow) {
+        // this.$emit("iframeChanged", url)
+
+        const intervalId = setInterval(() => {
+          clearInterval(intervalId)
+          popupWindow.close()
+          popupWindow = null
+          // this.$emit("iframeChanged", null)
+        }, this.popupTimeout)
+      }
+    },
     setIframe (url) {
       this.iframe = url
       this.resetIframeTimer()
