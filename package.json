@@ -3,10 +3,10 @@
     "version": "0.1.0",
     "private": true,
     "scripts": {
-        "serve": "vue-cli-service serve --open",
-        "build": "node --max_old_space_size=4096 node_modules/.bin/vue-cli-service build --mode=production",
-        "build-stage": "node --max_old_space_size=4096 node_modules/.bin/vue-cli-service build --mode staging",
-        "lint": "vue-cli-service lint",
+        "dev": "vite",
+        "build": "vite build",
+        "build-stage": "vite build --mode staging",
+        "lint": "eslint --ext .js,.vue .",
         "prettier": "prettier --write **/*.{js,ts,tsx,json,html,md,css,scss,vue}",
         "format": "npm-run-all --continue-on-error prettier \"lint -- --fix\""
     },
