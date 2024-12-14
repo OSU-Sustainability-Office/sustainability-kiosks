@@ -10,7 +10,7 @@
   <el-container class="app">
     <el-header class="header"> </el-header>
     <el-main class="main" ref="main">
-      <router-view @iframeChanged="iframe = $event" />
+      <router-view />
     </el-main>
   </el-container>
 </template>
@@ -35,7 +35,6 @@ export default {
       mediaCheckInterval: 600000, // 10 minutes, time in ms
       inactivityTimeout: 30000, // 30 seconds of inactivity. Time in milliseconds
       inactivityTimer: null,
-      iframe: null,
       mediaList: [],
       homePath: '/'
     }
@@ -119,11 +118,8 @@ export default {
       }
 
       // set a new timer for navigating to image carousel
-      if (!this.iframe) this.createInactivityTimer()
-
-      if (!this.iframe && this.$route.path === '/carousel') {
-        this.$router.push(this.homePath)
-      }
+      this.createInactivityTimer()
+      this.$router.push(this.homePath)
     }
   },
   async created () {
@@ -199,15 +195,6 @@ export default {
 
       if (to.path !== 'carousel') {
         this.homePath = to.path
-      }
-    },
-    // clear the carousel timer when the iframe is active,
-    // reset it when the iframe is closed
-    iframe: function (newUrl, oldUrl) {
-      if (newUrl) {
-        clearTimeout(this.inactivityTimer)
-      } else {
-        this.createInactivityTimer()
       }
     }
   }
