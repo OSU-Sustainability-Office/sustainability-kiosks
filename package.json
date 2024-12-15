@@ -6,7 +6,7 @@
     "dev": "vite",
     "build": "vite build",
     "build-stage": "vite build --mode staging",
-    "lint": "eslint --ext .js,.vue .",
+    "lint": "eslint --ext .js,.vue --ignore-path .gitignore --fix src",
     "prettier": "prettier --write **/*.{js,ts,tsx,json,html,md,css,scss,vue}",
     "format": "npm-run-all --continue-on-error prettier \"lint -- --fix\""
   },

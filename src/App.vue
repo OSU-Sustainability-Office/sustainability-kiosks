@@ -202,7 +202,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import "~element-ui/packages/theme-chalk/src/index";
+@import "element-ui/packages/theme-chalk/src/index";
 
 @font-face {
   font-family: "StratumNo2";
