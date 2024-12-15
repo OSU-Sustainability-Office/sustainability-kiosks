@@ -10,11 +10,9 @@
 
 module.exports = {
   root: true,
-  parserOptions: {
-    parser: 'babel-eslint'
-  },
   env: {
-    browser: true
+    browser: true,
+    es2022: true
   },
   extends: [
     // https://github.com/vuejs/eslint-plugin-vue#priority-a-essential-error-prevention
