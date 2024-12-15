@@ -207,9 +207,9 @@ export default {
 @font-face {
   font-family: "StratumNo2";
   src: url("#{$font-path}StratumNo2-Bold.woff2") format("woff2"),
-       url("#{$font-path}StratumNo2-Bold.woff") format("woff"),
-       url("#{$font-path}StratumNo2-Bold.ttf") format("truetype"),
-       url("#{$font-path}StratumNo2-Bold.svg#StratumNo2-Bold") format("svg");
+    url("#{$font-path}StratumNo2-Bold.woff") format("woff"),
+    url("#{$font-path}StratumNo2-Bold.ttf") format("truetype"),
+    url("#{$font-path}StratumNo2-Bold.svg#StratumNo2-Bold") format("svg");
   font-weight: bold;
   font-style: normal;
 }
@@ -222,7 +222,6 @@ body {
 </style>
 
 <style scoped lang="scss">
-@import "@/assets/style-variables.scss";
 
 .app {
   padding: 0;
