@@ -7,7 +7,6 @@ import Vuei18n from 'vue-i18n'
 import locale from 'element-ui/lib/locale/lang/en'
 
 import 'element-ui/lib/theme-chalk/reset.css'
-import '@/assets/style-variables.scss'
 
 Vue.use(Vuei18n)
 Vue.use(elm, { locale: locale })
