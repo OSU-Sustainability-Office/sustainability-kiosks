@@ -27,6 +27,7 @@ module.exports = {
   rules: {
     // allow async-await
     'no-multi-spaces': 'off',
+    'vue/multi-word-component-names': 'off',
     'generator-star-spacing': 'off',
     camelcase: [0, { properties: 'never' }],
     'strict-vue/require-jsdoc': 'off',

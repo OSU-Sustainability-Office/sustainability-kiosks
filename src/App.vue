@@ -222,7 +222,6 @@ body {
 </style>
 
 <style scoped lang="scss">
-
 .app {
   padding: 0;
   margin: 0;
