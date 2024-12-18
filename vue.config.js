@@ -12,7 +12,10 @@ module.exports = {
   css: {
     loaderOptions: {
       sass: {
-        prependData: '@import "@/assets/style-variables.scss";'
+        prependData: `
+          @import "@/assets/style-variables.scss";
+          $font-path: "${process.env.VUE_APP_FONT_PATH}";
+          `
       }
     }
   },
