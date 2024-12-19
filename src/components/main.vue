@@ -9,7 +9,7 @@
   <el-row class="sus-main" type="flex" justify="center" align="middle">
     <el-col class="content"> </el-col>
     <video autoplay muted loop id="Sus-bkg-video">
-      <source src="images/video.mp4" type="video/mp4" />
+      <source src="/images/video.mp4" type="video/mp4" />
     </video>
     <el-col type="flex" class="text-content" justify="center" align="middle">
       <el-row class="sus-title">
