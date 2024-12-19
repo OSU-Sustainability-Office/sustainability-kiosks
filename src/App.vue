@@ -201,33 +201,24 @@ export default {
 }
 </script>
 
-<style>
-@import url("https://fonts.googleapis.com/css?family=Open+Sans");
+<style lang="scss">
+@import "~element-ui/packages/theme-chalk/src/index";
+
 @font-face {
   font-family: "StratumNo2";
-  /* TODO: Fix this sometime to dynamically change the Font URL prefix based on environment
-     In the meantime, use these prefixes (RESET TO PRODUCTION PREFIX BEFORE MERGE!):
-      - local / staging:
-        - "/fonts/"
-      - production:
-        - "/sustainability-kiosks/fonts/"
-  */
-  src: url("/sustainability-kiosks/fonts/StratumNo2-Bold.woff2") format("woff2"),
-    url("/sustainability-kiosks/fonts/StratumNo2-Bold.woff") format("woff"),
-    url("/sustainability-kiosks/fonts/StratumNo2-Bold.ttf") format("truetype"),
-    url("/sustainability-kiosks/fonts/StratumNo2-Bold.svg#StratumNo2-Bold")
-      format("svg");
+  src: url("#{$font-path}StratumNo2-Bold.woff2") format("woff2"),
+       url("#{$font-path}StratumNo2-Bold.woff") format("woff"),
+       url("#{$font-path}StratumNo2-Bold.ttf") format("truetype"),
+       url("#{$font-path}StratumNo2-Bold.svg#StratumNo2-Bold") format("svg");
   font-weight: bold;
   font-style: normal;
 }
+
 body {
   font-family: "Open Sans", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-</style>
-<style lang="scss">
-@import "~element-ui/packages/theme-chalk/src/index";
 </style>
 
 <style scoped lang="scss">
