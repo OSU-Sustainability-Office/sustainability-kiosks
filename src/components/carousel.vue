@@ -33,7 +33,7 @@ export default {
   },
   computed: {
     currentImage () {
-      return this.images[this.imgIndex]
+      return this.images && this.images.length > 0 ? this.images[this.imgIndex] : null
     }
   },
   methods: {
@@ -47,17 +47,19 @@ export default {
       }
     }
   },
-  // rotate the image based on the given interval (in ms)
-  // ref: https://developer.mozilla.org/en-US/docs/Web/API/setInterval
-  mounted () {
-    this.timer = setInterval(this.rotateImage, this.rotationInterval)
 
+  beforeMount () {
     // if there are no images, redirect to the home page
     if (!this.images || this.images.length === 0) {
       this.$router.push('/')
     }
   },
-  beforeDestroy () {
+  // rotate the image based on the given interval (in ms)
+  // ref: https://developer.mozilla.org/en-US/docs/Web/API/setInterval
+  mounted () {
+    this.timer = setInterval(this.rotateImage, this.rotationInterval)
+  },
+  beforeUnmount () {
     clearInterval(this.timer)
   }
 }

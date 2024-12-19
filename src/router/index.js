@@ -34,32 +34,3 @@ const router = createRouter({
 })
 
 export default router
-
-// Vue.use(Router)
-
-// export default new Router({
-//   routes: [
-//     {
-//       path: '/',
-//       component: main
-//     },
-//     {
-//       path: '/sec',
-//       component: sec
-//     },
-//     {
-//       path: '/carousel',
-//       name: 'Carousel',
-//       component: carousel,
-//       props: (route) => ({
-//         images: route.params.images,
-//         returnRoute: route.params.returnRoute,
-//         touchScreenIndicator: route.params.touchScreenIndicator
-//       })
-//     },
-//     {
-//       path: '*',
-//       redirect: '/'
-//     }
-//   ]
-// })

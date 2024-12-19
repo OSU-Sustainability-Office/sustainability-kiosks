@@ -9,7 +9,7 @@
   <el-row class="sus-main" type="flex" justify="center" align="middle">
     <el-col class="content"> </el-col>
     <video autoplay muted loop id="Sus-bkg-video">
-      <source src="/images/video.mp4" type="video/mp4" />
+      <source src="images/video.mp4" type="video/mp4" />
     </video>
     <el-col type="flex" class="text-content" justify="center" align="middle">
       <el-row class="sus-title">
@@ -108,12 +108,13 @@ video {
   color: $--color-white;
   font-size: 1.5em;
 }
-.button-links {
-  margin: 10px;
+#button-links > .el-col {
+  flex: 1;
 }
 #myBtn {
   margin: 20px;
   font-size: 18px;
+  font-weight: bold;
   padding: 10px;
   height: 4em;
   border: 1px solid $--color-white;
