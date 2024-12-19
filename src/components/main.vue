@@ -49,6 +49,7 @@ export default {}
 </script>
 
 <style scoped lang="scss">
+@import "@/assets/style-variables.scss";
 .sus-main {
   position: fixed;
   left: 0;
