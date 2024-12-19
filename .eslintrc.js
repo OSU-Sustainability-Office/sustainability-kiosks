@@ -11,8 +11,7 @@
 module.exports = {
   root: true,
   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module'
+    ecmaVersion: 'latest'
   },
   env: {
     browser: true,
