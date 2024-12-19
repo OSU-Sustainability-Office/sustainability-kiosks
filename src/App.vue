@@ -1,11 +1,3 @@
-<!--
-@Author: Brogan Miner <Brogan>
-@Date:   2019-01-04T10:08:23-08:00
-@Email:  brogan.miner@oregonstate.edu
-@Last modified by:   Brogan
-@Last modified time: 2019-02-11T20:41:56-08:00
--->
-
 <template>
   <el-container class="app">
     <el-header class="header"> </el-header>
@@ -27,7 +19,7 @@ export default {
         name: 'foo'
       },
       timer: '',
-      url: process.env.VUE_APP_HOST_ADDRESS,
+      url: import.meta.env.VUE_APP_HOST_ADDRESS,
       modifiedDateUnix: 0,
       timeDiffUnix: 0,
       refreshInterval: 600, // 10 minutes refresh interval. Time in seconds (lower for debug)
@@ -151,7 +143,7 @@ export default {
     this.$el.addEventListener('click', this.navigateToHomepage)
     this.homePath = this.$route.path
   },
-  beforeDestroy () {
+  beforeUnmount () {
     clearInterval(this.timer)
     clearInterval(this.mediaCheckTimer)
 
@@ -202,8 +194,6 @@ export default {
 </script>
 
 <style lang="scss">
-@import "element-ui/packages/theme-chalk/src/index";
-
 @font-face {
   font-family: "StratumNo2";
   src: url("#{$font-path}StratumNo2-Bold.woff2") format("woff2"),
