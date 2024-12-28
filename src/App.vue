@@ -53,16 +53,29 @@ export default {
     async fetchMedia () {
       const listUrl = 'https://osu-kiosk-media.s3.us-west-2.amazonaws.com'
       const imgUrlPrefix = 'https://d3aici5r99iqap.cloudfront.net'
+      const devTestingFolder = 'development-test-images'
 
       // fetch media list from S3 bucket
       try {
         const response = await axios.get(listUrl)
         const parser = new DOMParser()
         const xmlDoc = parser.parseFromString(response.data, 'text/xml')
-        const keys = xmlDoc.getElementsByTagName('Key')
+        const bucketList = xmlDoc.getElementsByTagName('Key')
+
+        // filter out the key for the folder, and get image keys based on prod or dev
+        let keys = []
+        for (const key of bucketList) {
+          const keyText = key.textContent
+
+          if (process.env.NODE_ENV === 'development') {
+            if (keyText.includes(devTestingFolder) && !keyText.endsWith('/')) { keys.push(keyText) }
+          } else {
+            if (!key.textContent.includes(devTestingFolder)) { keys.push(key.textContent) }
+          }
+        }
 
         this.fetchedMediaList = Array.from(keys).map(
-          (key) => `${imgUrlPrefix}/${key.textContent}`
+          (key) => `${imgUrlPrefix}/${key}`
         )
 
         // remove any old images
