@@ -49,7 +49,7 @@ export default {}
 </script>
 
 <style scoped lang="scss">
-@import "@/assets/style-variables.scss";
+@use "@/assets/style-variables.scss" as *;
 .sus-main {
   position: fixed;
   left: 0;
@@ -90,22 +90,19 @@ video {
   z-index: -1;
 }
 .text-content {
-  font-size: $--font-size-large;
+  font-size: $font-size-large;
   position: fixed;
   display: block;
   font-family: StratumNo2;
-  color: $--color-white;
-  //  width: 100%;
+  color: $color-white;
   padding: 20px;
-  //  padding-top: 10em;
-  //  height: 100%;
 }
 .sus-title {
-  color: $--color-white;
+  color: $color-white;
   font-size: 2.5em;
 }
 .sus-info {
-  color: $--color-white;
+  color: $color-white;
   font-size: 1.5em;
 }
 #button-links > .el-col {
@@ -117,13 +114,13 @@ video {
   font-weight: bold;
   padding: 10px;
   height: 4em;
-  border: 1px solid $--color-white;
+  border: 1px solid $color-white;
   background: rgba(0, 0, 0, 0);
-  color: $--color-white;
+  color: $color-white;
   cursor: pointer;
 }
 #myBtn:hover {
-  background: $--color-white;
-  color: $--color-black;
+  background: $color-white;
+  color: $color-black;
 }
 </style>

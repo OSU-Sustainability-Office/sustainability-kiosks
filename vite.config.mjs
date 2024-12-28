@@ -21,7 +21,7 @@ export default defineConfig(({ mode }) => {
       preprocessorOptions: {
         scss: {
           additionalData: `
-            @import "@/assets/style-variables.scss";
+            @use "@/assets/style-variables.scss" as *;
             $font-path: "${env.VITE_FONT_PATH}";
             `
         }
