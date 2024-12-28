@@ -19,7 +19,7 @@ export default {
     return {
       navigationStore,
       imgIndex: 0,
-      rotationInterval: 1000 // time in ms (15 seconds)
+      rotationInterval: 15000 // time in ms (15 seconds)
     }
   },
   computed: {
