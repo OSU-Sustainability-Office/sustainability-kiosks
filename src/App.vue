@@ -68,9 +68,13 @@ export default {
           const keyText = key.textContent
 
           if (process.env.NODE_ENV === 'development') {
-            if (keyText.includes(devTestingFolder) && !keyText.endsWith('/')) { keys.push(keyText) }
+            if (keyText.includes(devTestingFolder) && !keyText.endsWith('/')) {
+              keys.push(keyText)
+            }
           } else {
-            if (!key.textContent.includes(devTestingFolder)) { keys.push(key.textContent) }
+            if (!key.textContent.includes(devTestingFolder)) {
+              keys.push(key.textContent)
+            }
           }
         }
 
