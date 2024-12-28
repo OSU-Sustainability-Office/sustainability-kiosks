@@ -15,32 +15,30 @@ import { useNavigationStore } from '../stores/navigationStore'
 export default {
   name: 'Carousel',
   data () {
-    const store = useNavigationStore()
+    const navigationStore = useNavigationStore()
     return {
-      store,
+      navigationStore,
       imgIndex: 0,
-      rotationInterval: 15000 // time in ms (15 seconds)
+      rotationInterval: 1000 // time in ms (15 seconds)
     }
   },
   computed: {
     currentImage () {
-      return this.store.images && this.store.images.length > 0 ? this.store.images[this.imgIndex] : null
+      return this.navigationStore.images && this.navigationStore.images.length > 0 ? this.navigationStore.images[this.imgIndex] : null
     },
     touchScreenIndicator () {
-      return this.store.touchScreenIndicator
+      return this.navigationStore.touchScreenIndicator
     },
     returnRoute () {
-      return this.store.returnRoute
+      return this.navigationStore.returnRoute
     }
   },
   methods: {
     rotateImage () {
-      this.imgIndex = (this.imgIndex + 1) % this.store.images.length
-
+      this.imgIndex = (this.imgIndex + 1) % this.navigationStore.images.length
       // if a return route is present and all images have been shown, return to the previous route
-      if (this.store.returnRoute && this.imgIndex === 0) {
-        this.store.setReturnRoute(null) // reset the return route
-        this.store.$router.push(this.store.returnRoute)
+      if (this.navigationStore.returnRoute && this.imgIndex === 0) {
+        this.$router.push(this.navigationStore.returnRoute)
       }
     }
   },
@@ -48,7 +46,7 @@ export default {
   // ref: https://developer.mozilla.org/en-US/docs/Web/API/setInterval
   mounted () {
     // if there are no images, redirect to the home page
-    if (!this.store.images || this.store.images.length === 0) {
+    if (!this.navigationStore.images || this.navigationStore.images.length === 0) {
       this.$router.push('/')
     }
     this.timer = setInterval(this.rotateImage, this.rotationInterval)

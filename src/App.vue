@@ -26,7 +26,7 @@ export default {
       refreshInterval: 600, // 10 minutes refresh interval. Time in seconds (lower for debug)
       mediaCheckTimer: null,
       mediaCheckInterval: 600000, // 10 minutes, time in ms
-      inactivityTimeout: 30000, // 30 seconds of inactivity. Time in milliseconds
+      inactivityTimeout: 3000, // 30 seconds of inactivity. Time in milliseconds
       inactivityTimer: null,
       homePath: '/'
     }
@@ -99,6 +99,8 @@ export default {
           name: 'Carousel'
         })
       }, this.inactivityTimeout)
+      this.navigationStore.returnRoute = this.$route.path
+      this.navigationStore.touchScreenIndicator = this.homePath === '/'
     },
     navigateToHomepage () {
       // clear timer
