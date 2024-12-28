@@ -10,53 +10,47 @@
 </template>
 
 <script>
+import { useNavigationStore } from '../stores/navigationStore'
+
 export default {
-  props: {
-    images: {
-      type: Array,
-      required: true
-    },
-    returnRoute: {
-      type: String,
-      default: null
-    },
-    touchScreenIndicator: {
-      type: Boolean,
-      default: false
-    }
-  },
+  name: 'Carousel',
   data () {
+    const store = useNavigationStore()
     return {
+      store,
       imgIndex: 0,
       rotationInterval: 15000 // time in ms (15 seconds)
     }
   },
   computed: {
     currentImage () {
-      return this.images && this.images.length > 0 ? this.images[this.imgIndex] : null
+      return this.store.images && this.store.images.length > 0 ? this.store.images[this.imgIndex] : null
+    },
+    touchScreenIndicator () {
+      return this.store.touchScreenIndicator
+    },
+    returnRoute () {
+      return this.store.returnRoute
     }
   },
   methods: {
     rotateImage () {
-      this.imgIndex = (this.imgIndex + 1) % this.images.length
+      this.imgIndex = (this.imgIndex + 1) % this.store.images.length
 
-      // if a return route was given and all images have been shown,
-      // return to the previous route
-      if (this.returnRoute && this.imgIndex === 0) {
-        this.$router.push(this.returnRoute)
+      // if a return route is present and all images have been shown, return to the previous route
+      if (this.store.returnRoute && this.imgIndex === 0) {
+        this.store.setReturnRoute(null) // reset the return route
+        this.store.$router.push(this.store.returnRoute)
       }
-    }
-  },
-
-  beforeMount () {
-    // if there are no images, redirect to the home page
-    if (!this.images || this.images.length === 0) {
-      this.$router.push('/')
     }
   },
   // rotate the image based on the given interval (in ms)
   // ref: https://developer.mozilla.org/en-US/docs/Web/API/setInterval
   mounted () {
+    // if there are no images, redirect to the home page
+    if (!this.store.images || this.store.images.length === 0) {
+      this.$router.push('/')
+    }
     this.timer = setInterval(this.rotateImage, this.rotationInterval)
   },
   beforeUnmount () {

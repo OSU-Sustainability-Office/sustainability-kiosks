@@ -9,6 +9,7 @@
 
 <script>
 import axios from 'axios'
+import { useNavigationStore } from '@/stores/navigationStore'
 
 export default {
   name: 'App',
@@ -27,7 +28,6 @@ export default {
       mediaCheckInterval: 600000, // 10 minutes, time in ms
       inactivityTimeout: 30000, // 30 seconds of inactivity. Time in milliseconds
       inactivityTimer: null,
-      mediaList: [],
       homePath: '/'
     }
   },
@@ -66,19 +66,21 @@ export default {
         )
 
         // remove any old images
-        for (const imgUrl of this.mediaList) {
+        for (const imgUrl of this.navigationStore.images) {
           if (!this.fetchedMediaList.includes(imgUrl)) {
-            this.mediaList = this.mediaList.filter((media) => media !== imgUrl)
+            this.navigationStore.images = this.navigationStore.images.filter(
+              (media) => media !== imgUrl
+            )
           }
         }
 
         // add new images and force browser to cache them
         for (const imgUrl of this.fetchedMediaList) {
-          if (!this.mediaList.includes(imgUrl)) {
+          if (!this.navigationStore.images.includes(imgUrl)) {
             const img = new Image()
             img.src = imgUrl
             img.onload = () => {
-              this.mediaList.push(imgUrl)
+              this.navigationStore.images.push(imgUrl)
             }
 
             img.onerror = (error) => {
@@ -94,12 +96,7 @@ export default {
     createInactivityTimer () {
       this.inactivityTimer = setTimeout(() => {
         this.$router.push({
-          name: 'Carousel',
-          params: {
-            images: this.mediaList,
-            returnRoute: this.$route.path,
-            touchScreenIndicator: this.homePath === '/'
-          }
+          name: 'Carousel'
         })
       }, this.inactivityTimeout)
     },
@@ -118,6 +115,7 @@ export default {
     // For future reference on how back button doesn't clear cache (for MU kiosk)
     // https://stackoverflow.com/a/75952012
     // https://stackoverflow.com/questions/58652880/what-is-the-replacement-for-performance-navigation-type-in-angular
+    this.navigationStore = useNavigationStore()
 
     // turned off for local development for reasons explained in "watch: " section
     if (process.env.NODE_ENV !== 'development') {
@@ -173,7 +171,7 @@ export default {
         }, 10000)
       }
     },
-    mediaList: function (newList, oldList) {
+    'navigationStore.images': function (newList, oldList) {
       if (newList.length === 0) {
         clearInterval(this.inactivityTimer)
       } else if (oldList.length === 0) {
