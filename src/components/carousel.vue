@@ -10,54 +10,48 @@
 </template>
 
 <script>
+import { useNavigationStore } from '../stores/navigationStore'
+
 export default {
-  props: {
-    images: {
-      type: Array,
-      required: true
-    },
-    returnRoute: {
-      type: String,
-      default: null
-    },
-    touchScreenIndicator: {
-      type: Boolean,
-      default: false
-    }
-  },
+  name: 'Carousel',
   data () {
+    const navigationStore = useNavigationStore()
     return {
+      navigationStore,
       imgIndex: 0,
       rotationInterval: 15000 // time in ms (15 seconds)
     }
   },
   computed: {
     currentImage () {
-      return this.images[this.imgIndex]
+      return this.navigationStore.images && this.navigationStore.images.length > 0 ? this.navigationStore.images[this.imgIndex] : null
+    },
+    touchScreenIndicator () {
+      return this.navigationStore.touchScreenIndicator
+    },
+    returnRoute () {
+      return this.navigationStore.returnRoute
     }
   },
   methods: {
     rotateImage () {
-      this.imgIndex = (this.imgIndex + 1) % this.images.length
-
-      // if a return route was given and all images have been shown,
-      // return to the previous route
-      if (this.returnRoute && this.imgIndex === 0) {
-        this.$router.push(this.returnRoute)
+      this.imgIndex = (this.imgIndex + 1) % this.navigationStore.images.length
+      // if a return route is present and all images have been shown, return to the previous route
+      if (this.navigationStore.returnRoute && this.imgIndex === 0) {
+        this.$router.push(this.navigationStore.returnRoute)
       }
     }
   },
   // rotate the image based on the given interval (in ms)
   // ref: https://developer.mozilla.org/en-US/docs/Web/API/setInterval
   mounted () {
-    this.timer = setInterval(this.rotateImage, this.rotationInterval)
-
     // if there are no images, redirect to the home page
-    if (!this.images || this.images.length === 0) {
+    if (!this.navigationStore.images || this.navigationStore.images.length === 0) {
       this.$router.push('/')
     }
+    this.timer = setInterval(this.rotateImage, this.rotationInterval)
   },
-  beforeDestroy () {
+  beforeUnmount () {
     clearInterval(this.timer)
   }
 }

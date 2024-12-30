@@ -1,11 +1,3 @@
-<!--
-@Author: Brogan Miner <Brogan>
-@Date:   2019-01-04T10:08:23-08:00
-@Email:  brogan.miner@oregonstate.edu
-@Last modified by:   Brogan
-@Last modified time: 2019-02-11T20:41:56-08:00
--->
-
 <template>
   <el-container class="app">
     <el-header class="header"> </el-header>
@@ -17,6 +9,7 @@
 
 <script>
 import axios from 'axios'
+import { useNavigationStore } from '@/stores/navigationStore'
 
 export default {
   name: 'App',
@@ -27,7 +20,7 @@ export default {
         name: 'foo'
       },
       timer: '',
-      url: process.env.VUE_APP_HOST_ADDRESS,
+      url: import.meta.env.VUE_APP_HOST_ADDRESS,
       modifiedDateUnix: 0,
       timeDiffUnix: 0,
       refreshInterval: 600, // 10 minutes refresh interval. Time in seconds (lower for debug)
@@ -35,7 +28,6 @@ export default {
       mediaCheckInterval: 600000, // 10 minutes, time in ms
       inactivityTimeout: 30000, // 30 seconds of inactivity. Time in milliseconds
       inactivityTimer: null,
-      mediaList: [],
       homePath: '/'
     }
   },
@@ -76,9 +68,13 @@ export default {
           const keyText = key.textContent
 
           if (process.env.NODE_ENV === 'development') {
-            if (keyText.includes(devTestingFolder) && !keyText.endsWith('/')) { keys.push(keyText) }
+            if (keyText.includes(devTestingFolder) && !keyText.endsWith('/')) {
+              keys.push(keyText)
+            }
           } else {
-            if (!key.textContent.includes(devTestingFolder)) { keys.push(key.textContent) }
+            if (!key.textContent.includes(devTestingFolder)) {
+              keys.push(key.textContent)
+            }
           }
         }
 
@@ -87,19 +83,21 @@ export default {
         )
 
         // remove any old images
-        for (const imgUrl of this.mediaList) {
+        for (const imgUrl of this.navigationStore.images) {
           if (!this.fetchedMediaList.includes(imgUrl)) {
-            this.mediaList = this.mediaList.filter((media) => media !== imgUrl)
+            this.navigationStore.images = this.navigationStore.images.filter(
+              (media) => media !== imgUrl
+            )
           }
         }
 
         // add new images and force browser to cache them
         for (const imgUrl of this.fetchedMediaList) {
-          if (!this.mediaList.includes(imgUrl)) {
+          if (!this.navigationStore.images.includes(imgUrl)) {
             const img = new Image()
             img.src = imgUrl
             img.onload = () => {
-              this.mediaList.push(imgUrl)
+              this.navigationStore.images.push(imgUrl)
             }
 
             img.onerror = (error) => {
@@ -115,14 +113,11 @@ export default {
     createInactivityTimer () {
       this.inactivityTimer = setTimeout(() => {
         this.$router.push({
-          name: 'Carousel',
-          params: {
-            images: this.mediaList,
-            returnRoute: this.$route.path,
-            touchScreenIndicator: this.homePath === '/'
-          }
+          name: 'Carousel'
         })
       }, this.inactivityTimeout)
+      this.navigationStore.returnRoute = this.$route.path
+      this.navigationStore.touchScreenIndicator = this.homePath === '/'
     },
     navigateToHomepage () {
       // clear timer
@@ -139,6 +134,7 @@ export default {
     // For future reference on how back button doesn't clear cache (for MU kiosk)
     // https://stackoverflow.com/a/75952012
     // https://stackoverflow.com/questions/58652880/what-is-the-replacement-for-performance-navigation-type-in-angular
+    this.navigationStore = useNavigationStore()
 
     // turned off for local development for reasons explained in "watch: " section
     if (process.env.NODE_ENV !== 'development') {
@@ -164,7 +160,7 @@ export default {
     this.$el.addEventListener('click', this.navigateToHomepage)
     this.homePath = this.$route.path
   },
-  beforeDestroy () {
+  beforeUnmount () {
     clearInterval(this.timer)
     clearInterval(this.mediaCheckTimer)
 
@@ -194,7 +190,7 @@ export default {
         }, 10000)
       }
     },
-    mediaList: function (newList, oldList) {
+    'navigationStore.images': function (newList, oldList) {
       if (newList.length === 0) {
         clearInterval(this.inactivityTimer)
       } else if (oldList.length === 0) {
@@ -215,14 +211,12 @@ export default {
 </script>
 
 <style lang="scss">
-@import "~element-ui/packages/theme-chalk/src/index";
-
 @font-face {
   font-family: "StratumNo2";
   src: url("#{$font-path}StratumNo2-Bold.woff2") format("woff2"),
-       url("#{$font-path}StratumNo2-Bold.woff") format("woff"),
-       url("#{$font-path}StratumNo2-Bold.ttf") format("truetype"),
-       url("#{$font-path}StratumNo2-Bold.svg#StratumNo2-Bold") format("svg");
+    url("#{$font-path}StratumNo2-Bold.woff") format("woff"),
+    url("#{$font-path}StratumNo2-Bold.ttf") format("truetype"),
+    url("#{$font-path}StratumNo2-Bold.svg#StratumNo2-Bold") format("svg");
   font-weight: bold;
   font-style: normal;
 }
@@ -235,8 +229,6 @@ body {
 </style>
 
 <style scoped lang="scss">
-@import "@/assets/style-variables.scss";
-
 .app {
   padding: 0;
   margin: 0;

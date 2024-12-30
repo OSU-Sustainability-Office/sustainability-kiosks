@@ -1,24 +1,22 @@
-import Vue from 'vue'
+import { createApp } from 'vue'
+import { createPinia } from 'pinia'
 import App from './App.vue'
 import router from './router'
-import store from './store'
-import elm from 'element-ui'
-import Vuei18n from 'vue-i18n'
-import locale from 'element-ui/lib/locale/lang/en'
+import ElementPlus from 'element-plus'
+import 'element-plus/dist/index.css'
+import { createI18n } from 'vue-i18n'
 
-import 'element-ui/lib/theme-chalk/reset.css'
-import '@/assets/style-variables.scss'
+const i18n = createI18n({
+  locale: 'en',
+  messages: {}
+})
 
-Vue.use(Vuei18n)
-Vue.use(elm, { locale: locale })
+const app = createApp(App)
+const pinia = createPinia()
 
-Vue.config.lang = 'en'
+app.use(ElementPlus)
+app.use(i18n)
+app.use(router)
+app.use(pinia)
 
-Vue.config.productionTip = false
-
-new Vue({
-  el: '#app',
-  router,
-  store,
-  render: (h) => h(App)
-}).$mount('#app')
+app.mount('#app')

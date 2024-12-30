@@ -9,7 +9,7 @@
   <el-row class="sus-main" type="flex" justify="center" align="middle">
     <el-col class="content"> </el-col>
     <video autoplay muted loop id="Sus-bkg-video">
-      <source src="images/video.mp4" type="video/mp4" />
+      <source src="/images/video.mp4" type="video/mp4" />
     </video>
     <el-col type="flex" class="text-content" justify="center" align="middle">
       <el-row class="sus-title">
@@ -33,6 +33,7 @@ export default {}
 </script>
 
 <style scoped lang="scss">
+@use "@/assets/style-variables.scss" as *;
 .sus-main {
   position: fixed;
   left: 0;
@@ -73,22 +74,22 @@ video {
   z-index: -1;
 }
 .text-content {
-  font-size: $--font-size-large;
+  font-size: $font-size-large;
   position: fixed;
   display: block;
   font-family: StratumNo2;
-  color: $--color-white;
+  color: $color-white;
   //  width: 100%;
   padding: 20px;
   //  padding-top: 10em;
   //  height: 100%;
 }
 .sus-title {
-  color: $--color-white;
+  color: $color-white;
   font-size: 2.5em;
 }
 .sus-info {
-  color: $--color-white;
+  color: $color-white;
   font-size: 1.5em;
 }
 .button-links {
@@ -99,13 +100,13 @@ video {
   font-size: 18px;
   padding: 10px;
   height: 4em;
-  border: 1px solid $--color-white;
+  border: 1px solid $color-white;
   background: rgba(0, 0, 0, 0);
-  color: $--color-white;
+  color: $color-white;
   cursor: pointer;
 }
 #myBtn:hover {
-  background: $--color-white;
-  color: $--color-black;
+  background: $color-white;
+  color: $color-black;
 }
 </style>

@@ -11,10 +11,11 @@
 module.exports = {
   root: true,
   parserOptions: {
-    parser: 'babel-eslint'
+    ecmaVersion: 'latest'
   },
   env: {
-    browser: true
+    browser: true,
+    es2022: true
   },
   extends: [
     // https://github.com/vuejs/eslint-plugin-vue#priority-a-essential-error-prevention
@@ -29,6 +30,7 @@ module.exports = {
   rules: {
     // allow async-await
     'no-multi-spaces': 'off',
+    'vue/multi-word-component-names': 'off',
     'generator-star-spacing': 'off',
     camelcase: [0, { properties: 'never' }],
     'strict-vue/require-jsdoc': 'off',
