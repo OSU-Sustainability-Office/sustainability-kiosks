@@ -24,7 +24,10 @@ export default {
   },
   computed: {
     currentImage () {
-      return this.navigationStore.images && this.navigationStore.images.length > 0 ? this.navigationStore.images[this.imgIndex] : null
+      return this.navigationStore.images &&
+        this.navigationStore.images.length > 0
+        ? this.navigationStore.images[this.imgIndex]
+        : null
     },
     touchScreenIndicator () {
       return this.navigationStore.touchScreenIndicator
@@ -46,7 +49,10 @@ export default {
   // ref: https://developer.mozilla.org/en-US/docs/Web/API/setInterval
   mounted () {
     // if there are no images, redirect to the home page
-    if (!this.navigationStore.images || this.navigationStore.images.length === 0) {
+    if (
+      !this.navigationStore.images ||
+      this.navigationStore.images.length === 0
+    ) {
       this.$router.push('/')
     }
     this.timer = setInterval(this.rotateImage, this.rotationInterval)
