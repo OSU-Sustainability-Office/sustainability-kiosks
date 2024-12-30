@@ -202,7 +202,7 @@ export default {
         this.createInactivityTimer()
       }
 
-      if (to.path !== 'carousel') {
+      if (to.path !== '/carousel') {
         this.homePath = to.path
       }
     }
