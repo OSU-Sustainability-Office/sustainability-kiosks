@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHashHistory } from 'vue-router'
 import main from '@/components/main.vue'
 import sec from '@/components/sec.vue'
 import carousel from '@/components/carousel.vue'
@@ -24,7 +24,7 @@ const routes = [
 ]
 
 const router = createRouter({
-  history: createWebHistory(import.meta.env.VITE_HOST_ADDRESS),
+  history: createWebHashHistory(import.meta.env.VITE_HOST_ADDRESS),
   routes
 })
 
