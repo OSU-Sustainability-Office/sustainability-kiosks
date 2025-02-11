@@ -53,7 +53,7 @@ export default {
       !this.navigationStore.images ||
       this.navigationStore.images.length === 0
     ) {
-      this.$router.push('/')
+      this.$router.push(this.navigationStore.returnRoute)
     }
     this.timer = setInterval(this.rotateImage, this.rotationInterval)
   },
