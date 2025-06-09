@@ -14,7 +14,7 @@ import { useNavigationStore } from '@/stores/navigationStore'
 export default {
   name: 'App',
   components: {},
-  data () {
+  data() {
     return {
       card: {
         name: 'foo'
@@ -32,10 +32,10 @@ export default {
     }
   },
   methods: {
-    fetchLastModified () {
+    fetchLastModified() {
       // https://stackoverflow.com/questions/36572540/vue-js-auto-reload-refresh-data-with-timer
       // https://stackoverflow.com/a/74967740
-      fetch(this.url, { method: 'HEAD' }).then((r) => {
+      fetch(this.url, { method: 'HEAD' }).then(r => {
         // string for when kiosk prod / staging was last modified, e.g. "Tue Apr 09 2024 14:29:24 GMT-0700 (Pacific Daylight Time)"
         let modifiedDateString = new Date(r.headers.get('Last-Modified'))
 
@@ -43,14 +43,13 @@ export default {
         this.modifiedDateUnix = Math.floor(modifiedDateString / 1000)
 
         // time in seconds between last time kiosk prod / staging was modified and now
-        this.timeDiffUnix =
-          Math.floor(Date.now() / 1000) - this.modifiedDateUnix
+        this.timeDiffUnix = Math.floor(Date.now() / 1000) - this.modifiedDateUnix
 
         // Log the modifiedDateUnix and timeDiffUnix here if needed for debug
       })
     },
     // fetch media from AWS bucket
-    async fetchMedia () {
+    async fetchMedia() {
       const listUrl = 'https://osu-kiosk-media.s3.us-west-2.amazonaws.com'
       const imgUrlPrefix = 'https://d3aici5r99iqap.cloudfront.net'
       const devTestingFolder = 'development-test-images'
@@ -78,16 +77,12 @@ export default {
           }
         }
 
-        this.fetchedMediaList = Array.from(keys).map(
-          (key) => `${imgUrlPrefix}/${key}`
-        )
+        this.fetchedMediaList = Array.from(keys).map(key => `${imgUrlPrefix}/${key}`)
 
         // remove any old images
         for (const imgUrl of this.navigationStore.images) {
           if (!this.fetchedMediaList.includes(imgUrl)) {
-            this.navigationStore.images = this.navigationStore.images.filter(
-              (media) => media !== imgUrl
-            )
+            this.navigationStore.images = this.navigationStore.images.filter(media => media !== imgUrl)
           }
         }
 
@@ -100,7 +95,7 @@ export default {
               this.navigationStore.images.push(imgUrl)
             }
 
-            img.onerror = (error) => {
+            img.onerror = error => {
               console.error('Error loading image:', error)
             }
           }
@@ -110,7 +105,7 @@ export default {
       }
     },
     // creates a timer that routes to the Carousel page after time is up
-    createInactivityTimer () {
+    createInactivityTimer() {
       this.inactivityTimer = setTimeout(() => {
         this.$router.push({
           name: 'Carousel'
@@ -119,7 +114,7 @@ export default {
       this.navigationStore.returnRoute = this.$route.path
       this.navigationStore.touchScreenIndicator = this.homePath === '/'
     },
-    navigateToHomepage () {
+    navigateToHomepage() {
       // clear timer
       if (this.inactivityTimer) {
         clearTimeout(this.inactivityTimer)
@@ -130,7 +125,7 @@ export default {
       this.$router.push(this.homePath)
     }
   },
-  async created () {
+  async created() {
     // For future reference on how back button doesn't clear cache (for MU kiosk)
     // https://stackoverflow.com/a/75952012
     // https://stackoverflow.com/questions/58652880/what-is-the-replacement-for-performance-navigation-type-in-angular
@@ -138,16 +133,10 @@ export default {
 
     // turned off for local development for reasons explained in "watch: " section
     if (process.env.NODE_ENV !== 'development') {
-      this.timer = setInterval(
-        this.fetchLastModified,
-        this.refreshInterval * 1000
-      ) // setInterval expects milliseconds
+      this.timer = setInterval(this.fetchLastModified, this.refreshInterval * 1000) // setInterval expects milliseconds
 
       // check for new media
-      this.mediaCheckTimer = setInterval(
-        this.fetchMedia,
-        this.mediaCheckInterval
-      )
+      this.mediaCheckTimer = setInterval(this.fetchMedia, this.mediaCheckInterval)
     }
 
     // get media for rotation
@@ -156,11 +145,11 @@ export default {
     // create a timer for media rotation
     this.createInactivityTimer()
   },
-  mounted () {
+  mounted() {
     this.$el.addEventListener('click', this.navigateToHomepage)
     this.homePath = this.$route.path
   },
-  beforeUnmount () {
+  beforeUnmount() {
     clearInterval(this.timer)
     clearInterval(this.mediaCheckTimer)
 
@@ -197,7 +186,7 @@ export default {
         this.createInactivityTimer()
       }
     },
-    $route (to, from) {
+    $route(to, from) {
       if (from.path === '/carousel' && to.path !== '/carousel') {
         this.createInactivityTimer()
       }
@@ -212,17 +201,18 @@ export default {
 
 <style lang="scss">
 @font-face {
-  font-family: "StratumNo2";
-  src: url("#{$font-path}StratumNo2-Bold.woff2") format("woff2"),
-    url("#{$font-path}StratumNo2-Bold.woff") format("woff"),
-    url("#{$font-path}StratumNo2-Bold.ttf") format("truetype"),
-    url("#{$font-path}StratumNo2-Bold.svg#StratumNo2-Bold") format("svg");
+  font-family: 'StratumNo2';
+  src:
+    url('#{$font-path}StratumNo2-Bold.woff2') format('woff2'),
+    url('#{$font-path}StratumNo2-Bold.woff') format('woff'),
+    url('#{$font-path}StratumNo2-Bold.ttf') format('truetype'),
+    url('#{$font-path}StratumNo2-Bold.svg#StratumNo2-Bold') format('svg');
   font-weight: bold;
   font-style: normal;
 }
 
 body {
-  font-family: "Open Sans", sans-serif;
+  font-family: 'Open Sans', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }

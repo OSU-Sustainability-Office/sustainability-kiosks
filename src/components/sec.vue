@@ -33,7 +33,7 @@ export default {}
 </script>
 
 <style scoped lang="scss">
-@use "@/assets/style-variables.scss" as *;
+@use '@/assets/style-variables.scss' as *;
 .sus-main {
   position: fixed;
   left: 0;

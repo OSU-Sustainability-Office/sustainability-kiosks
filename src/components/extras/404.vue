@@ -11,9 +11,9 @@
 export default {
   name: '404',
   props: [],
-  data () {},
+  data() {},
   watch: {},
-  mounted () {},
+  mounted() {},
   methods: {}
 }
 </script>
@@ -25,7 +25,7 @@ export default {
 .title {
   font-size: 120px;
   color: rgb(223, 223, 223);
-  font-family: "open sans";
+  font-family: 'open sans';
 }
 .body {
   font-size: 28px;
