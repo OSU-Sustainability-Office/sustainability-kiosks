@@ -9,47 +9,29 @@ import { mapGetters, mapMutations, mapActions } from 'vuex'
 
 export default {
   props: ['nameSpace'],
-  beforeCreate () {
+  beforeCreate() {
     const moduleName = `${this.$options.propsData.nameSpace}/`
-    let getterKeys = Reflect.ownKeys(this.$store.getters).reduce(
-      (prev, current) => {
-        let splitString = current.split(moduleName)
-        if (
-          splitString.length === 2 &&
-          splitString[1].split('/').length === 1
-        ) {
-          prev[splitString[1]] = current
-        }
-        return prev
-      },
-      {}
-    )
-    let mutationKeys = Reflect.ownKeys(this.$store._mutations).reduce(
-      (prev, current) => {
-        let splitString = current.split(moduleName)
-        if (
-          splitString.length === 2 &&
-          splitString[1].split('/').length === 1
-        ) {
-          prev[splitString[1]] = current
-        }
-        return prev
-      },
-      {}
-    )
-    let actionKeys = Reflect.ownKeys(this.$store._actions).reduce(
-      (prev, current) => {
-        let splitString = current.split(moduleName)
-        if (
-          splitString.length === 2 &&
-          splitString[1].split('/').length === 1
-        ) {
-          prev[splitString[1]] = current
-        }
-        return prev
-      },
-      {}
-    )
+    let getterKeys = Reflect.ownKeys(this.$store.getters).reduce((prev, current) => {
+      let splitString = current.split(moduleName)
+      if (splitString.length === 2 && splitString[1].split('/').length === 1) {
+        prev[splitString[1]] = current
+      }
+      return prev
+    }, {})
+    let mutationKeys = Reflect.ownKeys(this.$store._mutations).reduce((prev, current) => {
+      let splitString = current.split(moduleName)
+      if (splitString.length === 2 && splitString[1].split('/').length === 1) {
+        prev[splitString[1]] = current
+      }
+      return prev
+    }, {})
+    let actionKeys = Reflect.ownKeys(this.$store._actions).reduce((prev, current) => {
+      let splitString = current.split(moduleName)
+      if (splitString.length === 2 && splitString[1].split('/').length === 1) {
+        prev[splitString[1]] = current
+      }
+      return prev
+    }, {})
     this.$options.computed = {
       ...this.$options.computed,
       ...mapGetters(getterKeys)

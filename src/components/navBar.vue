@@ -48,10 +48,10 @@
 export default {
   name: 'navigbar',
   components: {},
-  data () {},
+  data() {},
   computed: {},
-  created () {},
-  mounted () {},
+  created() {},
+  mounted() {},
   watch: {},
   methods: {}
 }
@@ -95,7 +95,7 @@ export default {
   color: $--color-white !important;
 }
 .sus-nav-menu > *:not(.is-active):hover:after {
-  content: "\a0";
+  content: '\a0';
   display: block;
   padding: 0 2px;
   line-height: 1px;

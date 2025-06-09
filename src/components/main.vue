@@ -22,19 +22,16 @@
         <el-col> </el-col>
         <el-col> </el-col>
         <el-col>
-          <a href="https://sustainability.oregonstate.edu/"
-            ><el-button id="myBtn">Sustainability Website</el-button></a
+          <a href="https://sustainability.oregonstate.edu/"><el-button id="myBtn">Sustainability Website</el-button></a>
+        </el-col>
+        <el-col>
+          <a href="https://dashboard.sustainability.oregonstate.edu/sustainability_map/"
+            ><el-button id="myBtn">Sustainability Map</el-button></a
           >
         </el-col>
         <el-col>
-          <a
-            href="https://osu-sustainability-office.github.io/sustainability_jeopardy/"
-            ><el-button id="myBtn">Sustainability Jeopardy</el-button></a
-          >
-        </el-col>
-        <el-col>
-          <a href="https://myco2.sustainability.oregonstate.edu/"
-            ><el-button id="myBtn">Carbon Footprint Calculator</el-button></a
+          <a href="https://dashboard.sustainability.oregonstate.edu/#/map"
+            ><el-button id="myBtn">Energy Dashboard</el-button></a
           >
         </el-col>
         <el-col> </el-col>
@@ -49,7 +46,7 @@ export default {}
 </script>
 
 <style scoped lang="scss">
-@use "@/assets/style-variables.scss" as *;
+@use '@/assets/style-variables.scss' as *;
 .sus-main {
   position: fixed;
   left: 0;
