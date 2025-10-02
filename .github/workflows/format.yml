@@ -20,7 +20,7 @@ jobs:
           npm install
       - name: npm format
         run: |
-          npm run formatgi
+          npm run format
       - name: Commit changes
         uses: stefanzweifel/git-auto-commit-action@v6
         with:
