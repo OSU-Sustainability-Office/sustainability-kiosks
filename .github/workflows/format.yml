@@ -20,9 +20,9 @@ jobs:
           npm install
       - name: npm format
         run: |
-          npm run format
+          npm run formatgi
       - name: Commit changes
-        uses: stefanzweifel/git-auto-commit-action@v5
+        uses: stefanzweifel/git-auto-commit-action@v6
         with:
           commit_message: "Format code"
           branch: ${{ github.head_ref }}
