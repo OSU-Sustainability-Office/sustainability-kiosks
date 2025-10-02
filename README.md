@@ -13,7 +13,7 @@ Content designed for large-format touchscreens in high-traffic locations on OSU'
 ## Site Setup
 
 - Installing Dependencies
-  - `npm i`
+  - `npm i` (use node version 20)
 - Run website locally
   - `npm run dev`
 - Formatting
