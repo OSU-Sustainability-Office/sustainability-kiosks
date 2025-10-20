@@ -1,28 +1,14 @@
-name: Format
+name: Format Check
 on:
   pull_request:
-    branches:
-      - master
+    branches: [master]
 
 jobs:
-  format:
-    name: Format and Commit to PR
+  check-formatting:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v5
-      - name: Set-up Node
-        uses: actions/setup-node@v5
-        with:
-          node-version: 20
-      - name: npm install
-        run: |
-          npm install
-      - name: npm format
-        run: |
-          npm run format
-      - name: Commit changes
-        uses: stefanzweifel/git-auto-commit-action@v6
-        with:
-          commit_message: "Format code"
-          branch: ${{ github.head_ref }}
+      - uses: actions/checkout@v5
+      - name: Install dependencies
+        run: npm ci
+      - name: Check formatting
+        run: npm run format:check
